@@ -32,6 +32,11 @@
             <Variable name="accent.secondary" description="Secondary Accent (Indigo)" type="color" default="#4F46E5"/>
             <Variable name="text.main" description="Primary Text" type="color" default="#E5E7EB"/>
             <Variable name="text.muted" description="Muted Text" type="color" default="#9CA3AF"/>
+        </Group>
+        <Group description="Social Links" title="Social Media">
+            <Variable name="social.twitter" description="Twitter URL" type="string" default="#"/>
+            <Variable name="social.facebook" description="Facebook URL" type="string" default="#"/>
+            <Variable name="social.linkedin" description="LinkedIn URL" type="string" default="#"/>
         </Group> */
 
         :root {
@@ -77,12 +82,12 @@
         /* Sticky Header */
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(12px);
+            background: var(--bg-main) !important;
+            opacity: 1 !important;
             border-bottom: 1px solid var(--glass-border);
             transition: var(--transition);
         }
-        header.scrolled { padding: 5px 0; background: rgba(11, 15, 25, 0.95); }
+        header.scrolled { padding: 5px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
         .nav-container {
             max-width: 1300px; margin: 0 auto; padding: 10px 25px;
@@ -96,9 +101,23 @@
         }
         .logo-text {
             font-weight: 800; font-size: 1.6rem; color: #fff; letter-spacing: -1px;
-            line-height: 1;
+            line-height: 1; display: flex; align-items: center;
         }
         .logo-text span { color: var(--accent-primary); }
+
+        /* Search Bar */
+        .header-search {
+            position: relative; margin: 0 20px; flex-grow: 0.5; max-width: 400px;
+        }
+        .header-search input {
+            width: 100%; background: var(--bg-secondary); border: 1px solid var(--glass-border);
+            padding: 8px 15px 8px 40px; border-radius: 10px; color: #fff; font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .header-search input:focus { border-color: var(--accent-primary); outline: none; box-shadow: 0 0 10px rgba(0, 245, 160, 0.1); }
+        .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+
+        @media (max-width: 1024px) { .header-search { display: none; } }
 
         /* Navigation & Hamburger */
         nav { display: none; } /* Default hide traditional nav */
@@ -129,6 +148,11 @@
             font-weight: 600; transition: var(--transition);
         }
         .mobile-menu a:hover { color: var(--accent-primary); padding-left: 10px; }
+        .mobile-search { margin-top: 20px; }
+        .mobile-search input {
+            width: 100%; background: var(--bg-main); border: 1px solid var(--glass-border);
+            padding: 10px; border-radius: 8px; color: #fff;
+        }
 
         /* Desktop Nav for larger screens */
         @media (min-width: 1025px) {
@@ -290,7 +314,7 @@
         @media (max-width: 768px) {
             .hero { height: auto; padding: 120px 20px 80px; }
             .hero h1 { font-size: 2.8rem; }
-            .main-wrapper { flex-direction: column; padding: 0 20px; margin-top: 100px; }
+            .main-wrapper { flex-direction: column; padding: 0 20px; margin-top: 120px; } /* Increased margin to avoid header overlap */
             .sidebar { width: 100%; margin-top: 40px; }
             .post-container { padding: 25px; border-radius: 16px; }
         }
@@ -302,7 +326,7 @@
             .hero-content div { flex-direction: column; }
             .card-title { font-size: 1rem; -webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
             .post-header h1 { font-size: 1.15rem; }
-            .main-wrapper { margin-top: 90px; }
+            .main-wrapper { margin-top: 110px; } /* Increased margin to avoid header overlap */
         }
 
         /* Sidebar & Footer */
@@ -352,6 +376,14 @@
                 </svg>
                 <div class='logo-text'>AI FORGE<span>LAB</span></div>
             </a>
+
+            <div class='header-search'>
+                <form action='/search' method='get'>
+                    <svg height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' fill='currentColor'/></svg>
+                    <input name='q' placeholder='Search AI ForgeLab...' type='text'/>
+                </form>
+            </div>
+
             <nav>
                 <ul>
                     <li><a expr:href='data:blog.homepageUrl'>Home</a></li>
@@ -369,6 +401,11 @@
                 <span></span>
             </div>
             <div class='mobile-menu' id='mobileMenu'>
+                <div class='mobile-search'>
+                    <form action='/search' method='get'>
+                        <input name='q' placeholder='Search...' type='text'/>
+                    </form>
+                </div>
                 <a expr:href='data:blog.homepageUrl'>Home</a>
                 <a href='/search/label/Tools'>Tools</a>
                 <a href='/search/label/Guides'>Guides</a>
@@ -427,9 +464,9 @@
                                     <div class='social-share'>
                                         <div class='section-title'>Share this post</div>
                                         <div style='display: flex; gap: 10px;'>
-                                            <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
-                                            <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
-                                            <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+                                            <a class='btn btn-glass' expr:href='data:social.twitter' target='_blank'>Twitter</a>
+                                            <a class='btn btn-glass' expr:href='data:social.facebook' target='_blank'>Facebook</a>
+                                            <a class='btn btn-glass' expr:href='data:social.linkedin' target='_blank'>LinkedIn</a>
                                         </div>
                                     </div>
                                 </article>
@@ -444,7 +481,8 @@
                             </div>
                             <div class='card-grid'>
                                 <b:loop index='i' values='data:posts' var='post'>
-                                    <a expr:class='data:post.labels any (l => l.name == "Prompts") and data:i == 0 ? "post-card reveal prompt-of-the-day" : "post-card reveal"' expr:href='data:post.url'>
+                                    <b:with value='data:post.labels any (l => l.name == "FeaturedPrompt")' var='isFeatured'>
+                                    <a expr:class='data:isFeatured ? "post-card reveal prompt-of-the-day" : "post-card reveal"' expr:href='data:post.url'>
                                         <b:with value='data:post.featuredImage ?: data:post.firstImageUrl' var='postImg'>
                                             <b:if cond='data:postImg'>
                                                 <img class='card-img' expr:src='resizeImage(data:postImg, 800, "16:9")' loading='lazy'/>
@@ -477,6 +515,7 @@
                                             <div class='card-footer'><span class='read-more'>Read Article</span></div>
                                         </div>
                                     </a>
+                                    </b:with>
                                 </b:loop>
                             </div>
                             <b:include name='nextprev'/>
@@ -507,8 +546,8 @@
         <div class='footer-bottom'><p>&#169; 2024 AI ForgeLab. All rights reserved.</p></div>
     </footer>
 
-    <div class='back-to-top' id='backToTop'><svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z' fill='currentColor'/></svg></div>
-    <div class='sound-toggle' id='soundToggle'><svg height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z' fill='currentColor'/></svg></div>
+    <div class='back-to-top' id='backToTop' title='Back to Top'><svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z' fill='currentColor'/></svg></div>
+    <div class='sound-toggle' id='soundToggle' title='Toggle Sound Effects'><svg height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z' fill='currentColor'/></svg></div>
 
     <script type='text/javascript'>
     //<![CDATA[
