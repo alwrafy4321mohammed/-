@@ -1,314 +1,371 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/gah/static/extensions' xmlns:data='http://www.google.com/adsense/search/ui' xmlns:expr='http://www.google.com/gah/static/extensions'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' dir='ltr' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/gah/static/extensions' xmlns:data='http://www.google.com/adsense/search/ui' xmlns:expr='http://www.google.com/gah/static/extensions'>
 <head>
     <meta charset='UTF-8'/>
     <meta content='width=device-width, initial-scale=1.0, minimum-scale=1.0' name='viewport'/>
     <title><data:blog.pageTitle/></title>
 
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap' rel='stylesheet'/>
+    <!-- SEO Meta Tags -->
+    <b:if cond='data:view.isHomepage'>
+        <meta content='Welcome to TechVantage - Your ultimate destination for computer basics, software reviews, hardware guides, and tech troubleshooting.' name='description'/>
+    </b:if>
+    <meta content='Tech, Computers, Software, Hardware, Tutorials, Reviews' name='keywords'/>
+
+    <!-- Fonts and Icons -->
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'/>
 
     <b:skin><![CDATA[
         :root {
-            --main-bg: #050b14;
-            --accent-color: #64ffda;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #e6f1ff;
-            --text-secondary: #8892b0;
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #ffffff;
+            --secondary-bg: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --header-height: 70px;
         }
 
-        @keyframes bgMotion {
-            0% { background-position: 0% 0%, 0% 0%; }
-            50% { background-position: 100% 100%, 50px 50px; }
-            100% { background-position: 0% 0%, 0% 0%; }
-        }
-
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            background-color: var(--main-bg);
-            background-image: radial-gradient(circle at 50% 50%, rgba(10, 25, 47, 0.9), var(--main-bg)), url('https://www.transparenttextures.com/patterns/stardust.png');
-            background-attachment: fixed;
-            background-size: 200% 200%, auto;
-            animation: bgMotion 20s infinite alternate ease-in-out;
-            color: var(--text-primary);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--primary-color); z-index: 1001; transition: width 0.1s;
+        }
+
+        /* Header & Navigation */
         header {
-            background: rgba(10, 25, 47, 0.8); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--header-height);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            display: flex; align-items: center;
+        }
+        .header-inner {
+            width: 92%; max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; letter-spacing: -0.5px; }
+
+        nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
+        nav ul li a { text-decoration: none; color: var(--text-main); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--primary-color); }
+
+        .mobile-menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
+
+        @media (max-width: 768px) {
+            nav.mobile-active {
+                display: block !important;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: #fff;
+                border-bottom: 1px solid var(--border-color);
+                padding: 20px;
+                animation: slideDown 0.3s ease-out;
+            }
+            nav.mobile-active ul {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
 
-        .header-inner { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent-color); text-decoration: none; }
-
-        .main-container { max-width: 1200px; width: 92%; margin: 120px auto 60px; }
-
-        .page-nav-wrapper { margin-bottom: 40px; text-align: center; }
-        .PageList ul {
-            list-style: none !important;
-            padding: 0 !important;
-            display: flex !important;
-            justify-content: center !important;
-            gap: 10px !important;
-            flex-wrap: wrap !important;
-            margin: 0 auto !important;
-        }
-        .PageList li a {
-            background: var(--glass-bg) !important;
-            border: 1px solid var(--glass-border) !important;
-            color: var(--text-primary) !important;
-            padding: 8px 16px !important;
-            border-radius: 10px !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-            transition: 0.3s;
-            display: inline-block !important;
-            font-size: 0.85rem !important;
+        @keyframes slideDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        /* Main Container */
+        .main-wrapper {
+            max-width: 1200px; width: 92%; margin: calc(var(--header-height) + 40px) auto 60px;
+            display: grid; grid-template-columns: 1fr 320px; gap: 40px;
         }
+
+        /* Content Area */
+        .content-area { min-width: 0; }
+
+        /* Post Grid */
+        .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
 
         .post-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: 0.3s ease;
-            text-decoration: none !important;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+            background: #fff; border: 1px solid var(--border-color); border-radius: 12px;
+            overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none; color: inherit; display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(20px); /* For animation */
+        }
+        .post-card.visible { opacity: 1; transform: translateY(0); }
+        .post-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+
+        .card-img { width: 100%; height: 200px; object-fit: cover; background: var(--secondary-bg); }
+        .card-body { padding: 20px; flex-grow: 1; }
+        .card-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 10px; line-height: 1.3; color: var(--text-main); }
+        .card-excerpt { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* Single Post */
+        .single-post-header { margin-bottom: 30px; }
+        .single-post-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; line-height: 1.2; }
+        .post-body { font-size: 1.1rem; line-height: 1.8; color: #334155; }
+        .post-body h2 { font-size: 1.75rem; margin-top: 40px; }
+        .post-body img { max-width: 100%; height: auto; border-radius: 12px; margin: 20px 0; }
+
+        /* Sidebar */
+        .sidebar-widget { margin-bottom: 40px; }
+        .widget-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--primary-color); display: inline-block; }
+
+        .popular-posts ul { list-style: none; padding: 0; }
+        .popular-posts li { display: flex; gap: 15px; margin-bottom: 15px; }
+        .pop-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+        .pop-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); text-decoration: none; }
+
+        /* Loading Skeleton */
+        .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* Footer */
+        footer { background: var(--secondary-bg); padding: 60px 0 30px; border-top: 1px solid var(--border-color); margin-top: 80px; }
+        .footer-inner { max-width: 1200px; width: 92%; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); text-decoration: none; margin-bottom: 20px; display: block; }
+        .footer-links h4 { margin-bottom: 20px; font-weight: 700; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-color); }
+        .footer-bottom { border-top: 1px solid var(--border-color); margin-top: 40px; padding-top: 20px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .main-wrapper { grid-template-columns: 1fr; }
+            .sidebar { order: 2; }
+        }
+        @media (max-width: 768px) {
+            .single-post-title { font-size: 1.8rem; }
+            nav { display: none; }
+            .mobile-menu-toggle { display: block; }
         }
 
-        .card-image-wrapper {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            background: rgba(255,255,255,0.02);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .card-content { padding: 20px; text-align: start; flex-grow: 1; }
-        .post-card-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.4; text-align: start; }
-        .post-card-snippet { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-
-        .post-single-container { max-width: 850px; margin: 0 auto; width: 100%; }
-        .post-content-body {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            box-sizing: border-box;
-            overflow-wrap: break-word;
-        }
-        .post-content-body h1 { font-size: 1.6rem; line-height: 1.3; margin-bottom: 20px; text-align: start; }
-        .post-body-text { line-height: 1.7; font-size: 1rem; color: #cbd5e1; text-align: start; }
-        .post-body-text img { max-width: 100% !important; height: auto !important; border-radius: 12px !important; margin: 20px 0 !important; }
-
-        @media (max-width: 600px) {
-            .main-container { margin-top: 100px; width: 94%; }
-            .post-content-body { padding: 20px; }
-            .post-content-body h1 { font-size: 1.4rem; }
-            .logo { font-size: 1.3rem; }
-            .posts-grid { grid-template-columns: 1fr; }
-        }
-
-        footer { background: rgba(5, 11, 20, 0.9); padding: 40px 20px; border-top: 1px solid var(--glass-border); text-align: center; }
-        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; }
-
-        #post-fetch-config { display: none; }
+        /* AdSense Placeholders */
+        .ad-slot { background: var(--secondary-bg); border: 1px dashed var(--border-color); padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.8rem; margin: 20px 0; border-radius: 8px; }
     ]]></b:skin>
 </head>
 <body>
-    <header><div class='header-inner'><a class='logo' expr:href='data:blog.homepageUrl'>AIVenture</a></div></header>
+    <div id='scroll-progress'/>
 
-    <div class='main-container'>
-        <div class='page-nav-wrapper'>
-            <b:section id='page-navigation' showaddelement='yes'>
-                <b:widget id='PageList1' locked='false' title='Pages' type='PageList'/>
-            </b:section>
+    <header>
+        <div class='header-inner'>
+            <a class='logo' expr:href='data:blog.homepageUrl'>TechVantage</a>
+            <nav>
+                <ul>
+                    <li><a expr:href='data:blog.homepageUrl'>Home</a></li>
+                    <li><a href='/search/label/Hardware'>Hardware</a></li>
+                    <li><a href='/search/label/Software'>Software</a></li>
+                    <li><a href='/search/label/Tutorials'>Tutorials</a></li>
+                    <li><a href='/p/about-us.html'>About</a></li>
+                </ul>
+            </nav>
+            <div class='mobile-menu-toggle'><i class='fas fa-bars'/></div>
         </div>
+    </header>
 
-        <b:section id='main' showaddelement='yes'>
-            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-                <b:includable id='main'>
-                    <b:if cond='data:view.isPost'>
-                        <div class='post-single-container'>
+    <div class='main-wrapper'>
+        <main class='content-area'>
+            <b:section id='main' showaddelement='yes'>
+                <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+                    <b:includable id='main'>
+                        <b:if cond='data:view.isPost'>
                             <b:loop values='data:posts' var='post'>
-                                <article class='post-content-body'>
-                                    <h1><data:post.title/></h1>
-                                    <div class='post-body-text'><data:post.body/></div>
+                                <article class='single-post'>
+                                    <div class='single-post-header'>
+                                        <h1 class='single-post-title'><data:post.title/></h1>
+                                        <div class='card-meta'><data:post.date/> | <data:post.author/></div>
+                                    </div>
+                                    <div class='ad-slot'>ADVERTISEMENT</div>
+                                    <div class='post-body'><data:post.body/></div>
+                                    <div class='ad-slot'>ADVERTISEMENT</div>
                                 </article>
                             </b:loop>
-                        </div>
-                    <b:else/>
-                        <b:if cond='data:view.isHomepage or data:view.isLabelSearch'>
+                        <b:else/>
                             <div class='posts-grid'>
                                 <b:loop values='data:posts' var='post'>
                                     <a class='post-card' expr:href='data:post.url'>
-                                        <div class='card-image-wrapper'>
-                                            <b:if cond='data:post.firstImageUrl'>
-                                                <img expr:src='resizeImage(data:post.firstImageUrl, 500, "1:1")' loading='lazy'/>
-                                            <b:elseif cond='data:post.thumbnailUrl'/>
-                                                <img expr:src='resizeImage(data:post.thumbnailUrl, 500, "1:1")' loading='lazy'/>
-                                            <b:else/>
-                                                <div class='card-icon-placeholder'><i class='fas fa-image'/></div>
-                                            </b:if>
-                                        </div>
-                                        <div class='card-content'>
-                                            <h2 class='post-card-title'><data:post.title/></h2>
-                                            <div class='post-card-snippet'><data:post.snippet/></div>
+                                        <b:if cond='data:post.firstImageUrl'>
+                                            <img class='card-img' expr:src='resizeImage(data:post.firstImageUrl, 400, "16:9")' loading='lazy'/>
+                                        <b:else/>
+                                            <div class='card-img skeleton'/>
+                                        </b:if>
+                                        <div class='card-body'>
+                                            <div class='card-meta'><data:post.labels.first.name/></div>
+                                            <h2 class='card-title'><data:post.title/></h2>
+                                            <div class='card-excerpt'><data:post.snippet/></div>
                                         </div>
                                     </a>
                                 </b:loop>
                             </div>
-                        <b:else/>
-                            <b:if cond='data:view.isPage'>
-                                <div id='static-page-posts-grid' class='posts-grid'>
-                                    <p style='text-align: center; color: var(--text-secondary); padding: 50px; grid-column: 1/-1;'>جاري تحميل المشاركات...</p>
-                                </div>
-                                <b:loop values='data:posts' var='post'>
-                                    <div class='post-body-text'><data:post.body/></div>
-                                </b:loop>
-                            </b:if>
                         </b:if>
-                    </b:if>
-                </b:includable>
-            </b:widget>
-        </b:section>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+        </main>
+
+        <aside class='sidebar'>
+            <b:section id='sidebar' showaddelement='yes'>
+                <b:widget id='PopularPosts1' locked='false' title='Trending' type='PopularPosts'>
+                    <b:includable id='main'>
+                        <div class='sidebar-widget popular-posts'>
+                            <h3 class='widget-title'><data:title/></h3>
+                            <ul>
+                                <b:loop values='data:posts' var='post'>
+                                    <li>
+                                        <b:if cond='data:post.featuredImage'>
+                                            <img class='pop-img' expr:src='resizeImage(data:post.featuredImage, 100, "1:1")'/>
+                                        </b:if>
+                                        <a class='pop-title' expr:href='data:post.href'><data:post.title/></a>
+                                    </li>
+                                </b:loop>
+                            </ul>
+                        </div>
+                    </b:includable>
+                </b:widget>
+                <b:widget id='Label1' locked='false' title='Categories' type='Label'>
+                    <b:includable id='main'>
+                        <div class='sidebar-widget'>
+                            <h3 class='widget-title'><data:title/></h3>
+                            <div class='label-cloud'>
+                                <b:loop values='data:labels' var='label'>
+                                    <a expr:href='data:label.url' style='background:#f1f5f9; padding:5px 12px; border-radius:20px; font-size:0.85rem; text-decoration:none; color:var(--text-main); margin:0 5px 10px 0; display:inline-block;'>
+                                        <data:label.name/>
+                                    </a>
+                                </b:loop>
+                            </div>
+                        </div>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+        </aside>
     </div>
 
     <footer>
-        <div class='footer-links'>
-            <a expr:href='data:blog.homepageUrl'>Home</a>
-            <a href='/p/about-us.html'>About Us</a>
-            <a href='/p/contact-us.html'>Contact Us</a>
-            <a href='/p/privacy-policy.html'>Privacy Policy</a>
-            <a href='/p/terms-and-conditions.html'>Terms and Conditions</a>
-            <a href='/p/disclaimer.html'>Disclaimer</a>
+        <div class='footer-inner'>
+            <div class='footer-info'>
+                <a class='footer-logo' href='/'>TechVantage</a>
+                <p style='color:var(--text-muted); font-size:0.9rem;'>Premium technology insights, tutorials, and reviews. Empowering your digital journey with expert knowledge.</p>
+            </div>
+            <div class='footer-links'>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href='/p/about-us.html'>About Us</a></li>
+                    <li><a href='/p/contact-us.html'>Contact Us</a></li>
+                    <li><a href='/p/disclaimer.html'>Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class='footer-links'>
+                <h4>Legals</h4>
+                <ul>
+                    <li><a href='/p/privacy-policy.html'>Privacy Policy</a></li>
+                    <li><a href='/p/terms-and-conditions.html'>Terms of Service</a></li>
+                </ul>
+            </div>
         </div>
-        <p>© 2026 AIVenture | Neural Interface v7.0</p>
+        <div class='footer-bottom'>
+            <p>© <script>document.write(new Date().getFullYear())</script> TechVantage. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script type='text/javascript'>
+    <script>
     //<![CDATA[
-        function loadPostsByLabel(label, targetElementId) {
-            var blogUrl = window.location.origin;
-            var script = document.createElement('script');
-            script.src = blogUrl + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json-in-script&callback=displayPosts';
-            document.head.appendChild(script);
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('nav');
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('mobile-active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
 
-            window.displayPosts = function(json) {
-                var postsContainer = document.getElementById(targetElementId);
-                if (!postsContainer) return;
-                postsContainer.innerHTML = '';
+        // Scroll Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
 
-                if (json.feed && json.feed.entry && json.feed.entry.length > 0) {
-                    json.feed.entry.forEach(function(entry) {
-                        var postUrl = '';
-                        for (var i = 0; i < entry.link.length; i++) {
-                            if (entry.link[i].rel == 'alternate') {
-                                postUrl = entry.link[i].href;
-                                break;
-                            }
-                        }
-                        var rawTitle = entry.title.$t || '';
-                        var postTitle = rawTitle.split('{')[0].split('<')[0].trim();
-                        if (postTitle === '') postTitle = 'مشاركة بدون عنوان';
-
-                        var postImage = '';
-                        if (entry.media$thumbnail) {
-                            postImage = entry.media$thumbnail.url.replace('s72-c', 's1600');
-                        } else if (entry.content && entry.content.$t.match(/<img[^>]+src="([^">]+)"/)) {
-                            postImage = entry.content.$t.match(/<img[^>]+src="([^">]+)"/)[1];
-                        }
-
-                        var rawText = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : '');
-                        var cleanText = rawText.replace(/<(style|script)[^>]*>[\s\S]*?<\/\1>/gi, '');
-                        cleanText = cleanText.replace(/<[^>]*>?/gm, '').trim();
-                        var postSnippet = cleanText.substring(0, 100) + (cleanText.length > 100 ? '...' : '');
-
-                        var imageHtml = postImage ? '<img src="' + postImage + '" loading="lazy"/>' : '<div class="card-icon-placeholder"><i class="fas fa-image"></i></div>';
-
-                        var postCard = document.createElement('a');
-                        postCard.href = postUrl;
-                        postCard.className = 'post-card';
-                        postCard.innerHTML = '<div class="card-image-wrapper">' + imageHtml + '</div>' +
-                                             '<div class="card-content">' +
-                                             '<h2 class="post-card-title">' + postTitle + '</h2>' +
-                                             '<div class="post-card-snippet">' + postSnippet + '</div>' +
-                                             '</div>';
-                        postsContainer.appendChild(postCard);
-                    });
-                } else {
-                    postsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;">' +
-                                             '<p style="color: var(--text-secondary); margin-bottom: 10px;">لا توجد مشاركات مرتبطة بهذا التصنيف حالياً.</p>' +
-                                             '<p style="font-size: 0.8rem; color: #555;">التصنيف المطلوب: <b>' + label + '</b></p></div>';
+        // Fade-in Animation on Scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.post-card').forEach(card => observer.observe(card));
+
+        // Schema Markup Injection (Article + Breadcrumb)
+        if (window.location.pathname.includes('/20') || window.location.pathname.includes('.html')) {
+            const isPost = window.location.pathname.includes('/20');
+            const schemas = [];
+
+            if (isPost) {
+                schemas.push({
+                    "@context": "https://schema.org",
+                    "@type": "TechArticle",
+                    "headline": document.title,
+                    "image": document.querySelector('img.card-img')?.src || "",
+                    "author": { "@type": "Person", "name": "TechVantage Team" },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "TechVantage",
+                        "logo": { "@type": "ImageObject", "url": "" }
+                    }
+                });
+            }
+
+            // Breadcrumb Schema
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            const breadcrumb = {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": window.location.origin
+                }]
             };
-        }
 
-        function initializeStaticPagePosts() {
-            var postsContainerId = 'static-page-posts-grid';
-            var targetContainer = document.getElementById(postsContainerId);
-            if (!targetContainer) return;
-
-            var configEl = document.getElementById('post-fetch-config');
-            var labelToFetch = '';
-
-            if (configEl && configEl.getAttribute('data-label')) {
-                labelToFetch = configEl.getAttribute('data-label');
-            } else {
-                labelToFetch = document.title.split(' : ')[0].split(' | ')[0].trim();
-            }
-
-            if (labelToFetch) {
-                loadPostsByLabel(labelToFetch, postsContainerId
-);
-            }
-        }
-
-        function cleanupSnippets() {
-            var snippets = document.querySelectorAll('.post-card-snippet');
-            snippets.forEach(function(snippet) {
-                var text = snippet.textContent;
-                // Enhanced regex to catch CSS blocks and selectors even if partially cut off
-                var cleanText = text.replace(/\{[\s\S]*?\}/g, ''); // Remove anything between { }
-                cleanText = cleanText.replace(/[.#]?[a-z0-9_-]+\s*\{/gi, ''); // Remove selectors before {
-                cleanText = cleanText.replace(/\.[a-z0-9_-]+|#[a-z0-9_-]+|property:\s*[^;]+;/gi, ''); // Remove class/id/props
-                cleanText = cleanText.replace(/[a-z-]+\s*:\s*[^;{}]+;?/gi, ''); // Remove any key:value;
-                cleanText = cleanText.replace(/[}{}:;]/g, ''); // Remove stray characters
-
-                cleanText = cleanText.trim();
-                if (cleanText !== text && cleanText !== "") {
-                    snippet.textContent = cleanText;
-                }
+            pathParts.forEach((part, index) => {
+                breadcrumb.itemListElement.push({
+                    "@type": "ListItem",
+                    "position": index + 2,
+                    "name": part.replace('.html', '').replace(/-/g, ' '),
+                    "item": window.location.origin + '/' + pathParts.slice(0, index + 1).join('/')
+                });
             });
-        }
+            schemas.push(breadcrumb);
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initializeStaticPagePosts();
-                cleanupSnippets();
+            schemas.forEach(s => {
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.text = JSON.stringify(s);
+                document.head.appendChild(script);
             });
-        } else {
-            initializeStaticPagePosts();
-            cleanupSnippets();
         }
     //]]>
     </script>
