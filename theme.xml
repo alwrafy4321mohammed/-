@@ -80,14 +80,14 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Sticky Header */
-        header {
+        #mainHeader {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             background: var(--bg-main) !important;
             opacity: 1 !important;
             border-bottom: 1px solid var(--glass-border);
             transition: var(--transition);
         }
-        header.scrolled { padding: 5px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        #mainHeader.scrolled { padding: 5px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
         .nav-container {
             max-width: 1300px; margin: 0 auto; padding: 10px 25px;
@@ -291,8 +291,10 @@
             text-align: left !important;
         }
         .post-header {
+            position: relative;
             margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;
             height: auto; min-height: 0; overflow: visible;
+            z-index: 1;
         }
         .post-container h1, .post-header h1 {
             font-size: clamp(1.4rem, 3.5vw, 2rem) !important;
