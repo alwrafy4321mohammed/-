@@ -16,13 +16,12 @@
     <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
 
     <!-- Favicon (Base64) -->
-    <link href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACv0lEQVR4nO2Zz2sTQRSAX8SDeCh68iJ68SDe7E28iAdP9SDe7E08eREPHjx48B8QvYmHInoRD0UPHjx48B8QvYmHInoRD0VPHjx48B8QvYmHInoRD0VPHjwUPYmHovf9IDM7SbtJNpuySfbB98Nh972Z772Z7703S0pKSkpKSkpKSkpK6p+mUqnshmGYAnAMwM0AnALwNIDnAdwJwI0AnATwJIDnAdwMwHEAVwGcAnAKwB6A9Y9Wq/V9v99v7fV6e/v9fnu/39/f7/f39/v9fnuv19vb6/X29/v9/f1+v7/f7+/v9/v7+/3+fr/fb08mk4P9fn9vNBod7Ha7e91ud280Gh0cDof7u93u3nA4PNjv9/f3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf/9fAP8BAtpM1V9Wv4sAAAAASUVORK5CYII=' rel='icon' type='image/png'/>
+    <link href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACv0lEQVR4nO2Zz2sTQRSAX8SDeCh68iJ68SDe7E28iAdP9SDe7E08eREPHjx48B8QvYmHInoRD0UPHjx48B8QvYmHInoRD0VPHjx48B8QvYmHInoRD0VPHjwUPYmHovf9IDM7SbtJNpuySfbB98Nh972Z772Z7703S0pKSkpKSkpKSkpK6p+mUqnshmGYAnAMwM0AnALwNIDnAdwJwI0AnATwJIDnAdwMwHEAVwGcAnAKwB6A9Y9Wq/V9v99v7fV6e/v9fnu/39/f7/f39/v9fnuv19vb6/X29/v9/f1+v7/f7+/v9/v7+/3+fr/fb08mk4P9fn9vNBod7Ha7e91ud280Gh0cDof7u93u3nA4PNjv9/f3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf6/X29/r9fb3er39vV5vf/9fAP8BAtpM1V9Wv4sAAAAASUVORK5CYII=' rel='icon' type='image/png'/>
 
     <b:skin><![CDATA[
         /*
-         * AI Forge - Production Ready Blogger Theme
+         * AI Forge - Updated Production Theme v2.0
          * Niche: Artificial Intelligence
-         * Author: Jules (AI Forge Dev Team)
          */
 
         /* --- THEME CONTROL PANEL --- */
@@ -33,20 +32,15 @@
             <Variable name="accent.secondary" description="Secondary Accent (Indigo)" type="color" default="#4F46E5"/>
             <Variable name="text.main" description="Primary Text" type="color" default="#E5E7EB"/>
             <Variable name="text.muted" description="Muted Text" type="color" default="#9CA3AF"/>
-        </Group>
-        <Group description="Theme Features" title="Toggles">
-            <Variable name="anim.enable" description="Enable Animations" type="string" default="true"/>
-            <Variable name="sound.enable" description="Enable Sound Effects" type="string" default="false"/>
-            <Variable name="posts.per.section" description="Posts per section" type="number" default="6"/>
         </Group> */
 
         :root {
-            --bg-main: #0B0F19;
-            --bg-secondary: #111827;
-            --accent-primary: #00F5A0;
-            --accent-secondary: #4F46E5;
-            --text-main: #E5E7EB;
-            --text-muted: #9CA3AF;
+            --bg-main: $(bg.main);
+            --bg-secondary: $(bg.secondary);
+            --accent-primary: $(accent.primary);
+            --accent-secondary: $(accent.secondary);
+            --text-main: $(text.main);
+            --text-muted: $(text.muted);
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --neon-glow: 0 0 15px rgba(0, 245, 160, 0.3);
@@ -55,7 +49,6 @@
 
         /* Global Reset */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
@@ -67,13 +60,15 @@
 
         /* Animations */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 245, 160, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(0, 245, 160, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 245, 160, 0); } }
-        @keyframes progress { from { width: 0%; } to { width: 100%; } }
         @keyframes meshGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+        @keyframes promptGlow {
+            0% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); border-color: var(--glass-border); }
+            50% { box-shadow: 0 0 30px rgba(0, 245, 160, 0.5); border-color: var(--accent-primary); }
+            100% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); border-color: var(--glass-border); }
         }
 
         .reveal { opacity: 0; transition: var(--transition); }
@@ -174,63 +169,46 @@
         .card-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 15px; }
         .read-more { font-size: 0.85rem; font-weight: 600; color: var(--accent-primary); display: flex; align-items: center; gap: 5px; }
 
-        /* Skeleton Loading */
-        .skeleton { background: linear-gradient(90deg, var(--bg-secondary) 25%, #1f2937 50%, var(--bg-secondary) 75%); background-size: 200% 100%; animation: meshGradient 1.5s infinite; }
+        /* Prompts Specifics */
+        .prompt-box { background: #070a11; border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; margin: 15px 0; position: relative; }
+        .prompt-text-content { font-family: 'Courier New', monospace; font-size: 0.9rem; color: var(--accent-primary); word-break: break-all; }
+        .copy-btn { position: absolute; top: 15px; right: 15px; background: var(--accent-primary); color: var(--bg-main); border: none; padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .generator-btns { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .gen-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; transition: 0.3s; }
+        .gen-btn:hover { background: var(--accent-primary); color: var(--bg-main); }
 
-        /* Main Container */
-        .main-wrapper { max-width: 1300px; margin: 80px auto; padding: 0 25px; display: grid; grid-template-columns: 1fr 320px; gap: 40px; }
-        .full-width { grid-column: 1 / -1; }
+        .prompt-of-the-day { grid-column: 1 / -1; animation: promptGlow 4s infinite; }
+        .prompt-of-the-day .card-title { font-size: 2.2rem; }
 
-        /* Sidebar */
+        /* Single Post & Page Styles */
+        .post-container {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease;
+        }
+        .post-header { margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; }
+        .post-header h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin: 10px 0; }
+        .post-meta { font-size: 0.9rem; color: var(--text-muted); }
+        .social-share { margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+
+        /* Sidebar & Footer */
         .sidebar-widget { background: var(--bg-secondary); border-radius: 20px; padding: 25px; margin-bottom: 30px; border: 1px solid var(--glass-border); }
         .widget-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: var(--accent-primary); }
-
-        /* Footer */
         footer { background: #070a11; border-top: 1px solid var(--glass-border); padding: 80px 25px 40px; }
         .footer-grid { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 60px; }
-        .footer-brand h2 { font-size: 1.8rem; margin-bottom: 15px; }
-        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; }
-        .footer-links h4 { margin-bottom: 20px; font-weight: 600; }
-        .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 12px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
-        .footer-links a:hover { color: var(--accent-primary); padding-left: 5px; }
         .footer-bottom { border-top: 1px solid var(--glass-border); padding-top: 30px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
 
-        /* Post Content */
-        .post-header { margin-bottom: 40px; text-align: center; }
-        .post-header h1 { font-size: 3rem; margin-bottom: 20px; }
-        .post-meta { display: flex; justify-content: center; gap: 20px; font-size: 0.9rem; color: var(--text-muted); }
-        .post-body { font-size: 1.1rem; line-height: 1.8; color: #d1d5db; }
-        .post-body img { max-width: 100%; border-radius: 20px; margin: 30px 0; }
-        .post-body h2, .post-body h3 { color: #fff; margin: 40px 0 20px; }
-
-        /* Sound Toggle */
-        .sound-toggle { position: fixed; bottom: 30px; left: 30px; background: var(--bg-secondary); border: 1px solid var(--glass-border); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: var(--transition); }
-        .sound-toggle:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-wrapper { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3.5rem; }
-        }
-        @media (max-width: 768px) {
-            nav { display: none; }
-            .hero h1 { font-size: 2.8rem; }
-            .post-header h1 { font-size: 2.2rem; }
-        }
-
-        /* Reading Time & Share */
-        .reading-time { font-style: italic; opacity: 0.7; }
-        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent-primary); color: var(--bg-main); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: var(--transition); opacity: 0; visibility: hidden; box-shadow: var(--neon-glow); }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent-primary); color: var(--bg-main); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; transition: var(--transition); opacity: 0; visibility: hidden; }
         .back-to-top.show { opacity: 1; visibility: visible; }
+        .sound-toggle { position: fixed; bottom: 30px; left: 30px; background: var(--bg-secondary); border: 1px solid var(--glass-border); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; }
     ]]></b:skin>
 </head>
 <body>
-    <!-- Reading Progress Bar -->
     <div class='progress-container'><div class='progress-bar' id='scrollBar'/></div>
 
-    <!-- Sticky Header -->
     <header id='mainHeader'>
         <div class='nav-container'>
             <a class='logo-wrap' expr:href='data:blog.homepageUrl'>
@@ -246,25 +224,23 @@
                     <li><a href='/search/label/Tools'>Tools</a></li>
                     <li><a href='/search/label/Guides'>Guides</a></li>
                     <li><a href='/search/label/Earn'>Earn</a></li>
+                    <li><a href='/search/label/Prompts'>Prompts</a></li>
                     <li><a href='/p/about.html'>About</a></li>
+                    <li><a href='/p/contact.html'>Contact</a></li>
                 </ul>
             </nav>
-            <div class='header-actions'>
-                <a class='btn btn-glass' href='#search' style='padding: 8px 15px; font-size: 0.8rem;'>Search</a>
-            </div>
+            <div class='header-actions'><a class='btn btn-glass' href='/search' style='padding: 8px 15px; font-size: 0.8rem;'>Search</a></div>
         </div>
     </header>
 
-    <!-- Homepage Content -->
     <b:if cond='data:view.isHomepage'>
         <section class='hero'>
             <div class='hero-content'>
-                <div class='card-tag' style='margin-bottom: 20px; font-size: 0.9rem;'>Intelligence Unleashed</div>
                 <h1>Build, Learn, and <span>Profit with AI</span></h1>
                 <p>Welcome to AI Forge. We provide the latest tools, comprehensive guides, and proven strategies to master the artificial intelligence revolution.</p>
                 <div style='display: flex; gap: 15px; justify-content: center;'>
-                    <a class='btn btn-primary' href='#latest'>Get Started</a>
-                    <a class='btn btn-glass' href='/p/about.html'>Our Mission</a>
+                    <a class='btn btn-primary' href='/search/label/Tools'>Explore Tools</a>
+                    <a class='btn btn-glass' href='/search/label/Guides'>Mastery Guides</a>
                 </div>
             </div>
         </section>
@@ -276,67 +252,59 @@
                 <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
                     <b:includable id='main'>
                         <b:if cond='data:view.isPost'>
-                            <!-- Single Post View -->
                             <b:loop values='data:posts' var='post'>
                                 <article class='post-container'>
                                     <header class='post-header'>
                                         <div class='card-tag'><data:post.labels.first.name/></div>
                                         <h1><data:post.title/></h1>
-                                        <div class='post-meta'>
-                                            <span><data:post.date/></span>
-                                            <span>•</span>
-                                            <span class='reading-time' id='readingTime'/>
-                                        </div>
+                                        <div class='post-meta'><span><data:post.date/></span> • <span id='readingTime'/></div>
                                     </header>
-                                    <div class='post-body' id='postBody'>
-                                        <data:post.body/>
-                                    </div>
-                                    <!-- Social Share -->
-                                    <div class='share-box' style='margin-top: 50px; border-top: 1px solid var(--glass-border); padding-top: 30px;'>
-                                        <h4 style='margin-bottom: 15px;'>Share this knowledge:</h4>
+                                    <div class='post-body' id='postBody'><data:post.body/></div>
+                                    <div class='social-share'>
+                                        <div class='section-title'>Share this post</div>
                                         <div style='display: flex; gap: 10px;'>
-                                            <a class='btn btn-glass' expr:href='"https://twitter.com/intent/tweet?text=" + data:post.title + "&amp;url=" + data:post.url' target='_blank'>Twitter</a>
-                                            <a class='btn btn-glass' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url' target='_blank'>Facebook</a>
+                                            <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
+                                            <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
+                                            <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
                                         </div>
                                     </div>
                                 </article>
                             </b:loop>
                         <b:elseif cond='data:view.isPage'/>
-                            <!-- Static Page View -->
                             <b:loop values='data:posts' var='post'>
-                                <article class='post-container'>
-                                    <h1 style='margin-bottom: 30px; font-size: 2.5rem;'><data:post.title/></h1>
-                                    <div class='post-body'>
-                                        <data:post.body/>
-                                    </div>
-                                </article>
+                                <article class='post-container'><h1><data:post.title/></h1><div class='post-body'><data:post.body/></div></article>
                             </b:loop>
                         <b:else/>
-                            <!-- Grid View (Home, Search, Label) -->
-                            <div class='section-title' id='latest'>
-                                <b:if cond='data:view.isLabelSearch'>
-                                    Latest in <data:view.search.label/>
-                                <b:else/>
-                                    Latest Forge Updates
-                                </b:if>
+                            <div class='section-title'>
+                                <b:if cond='data:view.isLabelSearch'>Latest in <data:view.search.label/><b:else/>Latest Updates</b:if>
                             </div>
                             <div class='card-grid'>
-                                <b:loop values='data:posts' var='post'>
-                                    <a class='post-card reveal' expr:href='data:post.url'>
-                                        <b:if cond='data:post.firstImageUrl'>
-                                            <img class='card-img' expr:src='resizeImage(data:post.firstImageUrl, 600, "16:9")' loading='lazy'/>
-                                        <b:else/>
-                                            <div class='card-img skeleton' style='display: flex; align-items: center; justify-content: center;'>
-                                                <svg height='40' viewBox='0 0 24 24' width='40' xmlns='http://www.w3.org/2000/svg'><path d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z' fill='var(--glass-border)'/></svg>
-                                            </div>
-                                        </b:if>
+                                <b:loop index='i' values='data:posts' var='post'>
+                                    <a expr:class='data:view.search.label == "Prompts" and data:i == 0 ? "post-card reveal prompt-of-the-day" : "post-card reveal"' expr:href='data:post.url'>
+                                        <b:if cond='data:post.firstImageUrl'><img class='card-img' expr:src='resizeImage(data:post.firstImageUrl, 800, "16:9")' loading='lazy'/><b:else/><div class='card-img' style='background: var(--bg-secondary);'/></b:if>
                                         <div class='card-body'>
                                             <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI News</b:if></div>
                                             <h2 class='card-title'><data:post.title/></h2>
-                                            <p class='card-excerpt'><data:post.snippet/></p>
-                                            <div class='card-footer'>
-                                                <span class='read-more'>Read Article <svg height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z' fill='currentColor'/></svg></span>
-                                            </div>
+
+                                            <b:with value='false' var='isPrompt'>
+                                                <b:loop values='data:post.labels' var='l'><b:if cond='data:l.name == "Prompts"'><b:with value='true' var='isPrompt'/></b:if></b:loop>
+
+                                                <b:if cond='data:view.search.label == "Prompts"'>
+                                                    <div class='prompt-box'>
+                                                        <button class='copy-btn' onclick='event.preventDefault(); copyText(this)'>Copy</button>
+                                                        <div class='prompt-text-content'><data:post.snippet/></div>
+                                                    </div>
+                                                    <div class='generator-btns'>
+                                                        <a class='gen-btn' href='https://www.midjourney.com' target='_blank'>Midjourney</a>
+                                                        <a class='gen-btn' href='https://www.leonardo.ai' target='_blank'>Leonardo AI</a>
+                                                        <a class='gen-btn' href='https://clipdrop.co/stable-diffusion' target='_blank'>Stable Diffusion</a>
+                                                    </div>
+                                                <b:else/>
+                                                    <p class='card-excerpt'><data:post.snippet/></p>
+                                                </b:if>
+                                            </b:with>
+
+                                            <div class='card-footer'><span class='read-more'>Read Article</span></div>
                                         </div>
                                     </a>
                                 </b:loop>
@@ -345,214 +313,134 @@
                     </b:includable>
                 </b:widget>
             </b:section>
-
-            <!-- Dynamic Sections on Homepage -->
-            <b:if cond='data:view.isHomepage'>
-                <div id='dynamic-sections-container'/>
-            </b:if>
+            <b:if cond='data:view.isHomepage'><div id='dynamic-sections-container'/></b:if>
         </main>
-
         <aside class='sidebar'>
             <b:section id='sidebar-section' showaddelement='yes'>
-                <b:widget id='HTML1' locked='false' title='Newsletter' type='HTML'>
-                    <b:includable id='main'>
-                        <div class='sidebar-widget'>
-                            <h3 class='widget-title'>Forge Newsletter</h3>
-                            <p style='font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;'>Get weekly AI insights delivered to your inbox.</p>
-                            <input placeholder='your@email.com' style='width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--glass-border); background: var(--bg-main); color: #fff; margin-bottom: 10px;' type='text'/>
-                            <button class='btn btn-primary' style='width: 100%; justify-content: center;'>Subscribe</button>
-                        </div>
-                    </b:includable>
-                </b:widget>
                 <b:widget id='Label1' locked='false' title='Categories' type='Label'>
                     <b:includable id='main'>
-                        <div class='sidebar-widget'>
-                            <h3 class='widget-title'>Categories</h3>
-                            <div style='display: flex; flex-wrap: wrap; gap: 8px;'>
-                                <b:loop values='data:labels' var='label'>
-                                    <a class='btn btn-glass' expr:href='data:label.url' style='padding: 6px 12px; font-size: 0.75rem; border-radius: 8px;'><data:label.name/></a>
-                                </b:loop>
-                            </div>
-                        </div>
+                        <div class='sidebar-widget'><h3 class='widget-title'>Categories</h3>
+                        <div style='display: flex; flex-wrap: wrap; gap: 8px;'><b:loop values='data:labels' var='label'><a class='btn btn-glass' expr:href='data:label.url' style='padding: 6px 12px; font-size: 0.75rem;'><data:label.name/></a></b:loop></div></div>
                     </b:includable>
                 </b:widget>
             </b:section>
         </aside>
     </div>
 
-    <!-- UI Components -->
-    <div class='back-to-top' id='backToTop'><svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z' fill='currentColor'/></svg></div>
-    <div class='sound-toggle' id='soundToggle' title='Toggle Sound Effects'>
-        <svg height='20' id='soundIcon' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z' fill='currentColor'/></svg>
-    </div>
-
     <footer>
         <div class='footer-grid'>
-            <div class='footer-brand'>
-                <div class='logo-text' style='margin-bottom: 15px;'>AI <span>FORGE</span></div>
-                <p>Building the future of artificial intelligence. Empowering builders, learners, and entrepreneurs since 2024.</p>
-            </div>
-            <div class='footer-links'>
-                <h4>Ecosystem</h4>
-                <ul>
-                    <li><a href='/search/label/Tools'>AI Tools</a></li>
-                    <li><a href='/search/label/Guides'>Learning Guides</a></li>
-                    <li><a href='/search/label/Earn'>Monetization</a></li>
-                </ul>
-            </div>
-            <div class='footer-links'>
-                <h4>Company</h4>
-                <ul>
-                    <li><a href='/p/about.html'>About Us</a></li>
-                    <li><a href='/p/contact.html'>Contact</a></li>
-                    <li><a href='/p/privacy.html'>Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class='footer-links'>
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href='/p/terms.html'>Terms of Service</a></li>
-                    <li><a href='/p/disclaimer.html'>Disclaimer</a></li>
-                </ul>
-            </div>
+            <div class='footer-brand'><div class='logo-text'>AI <span>FORGE</span></div><p>Building the future of AI. Empowering builders and learners.</p></div>
+            <div class='footer-links'><h4>Ecosystem</h4><ul><li><a href='/search/label/Tools'>AI Tools</a></li><li><a href='/search/label/Guides'>Guides</a></li><li><a href='/search/label/Earn'>Earn</a></li><li><a href='/search/label/Prompts'>Prompts</a></li></ul></div>
+            <div class='footer-links'><h4>Legal</h4><ul><li><a href='/p/privacy.html'>Privacy</a></li><li><a href='/p/terms.html'>Terms</a></li></ul></div>
         </div>
-        <div class='footer-bottom'>
-            <p>&#169; 2024 AI Forge. All rights reserved. Built with Neural Interface v8.0</p>
-        </div>
+        <div class='footer-bottom'><p>&#169; 2024 AI Forge. All rights reserved.</p></div>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <div class='back-to-top' id='backToTop'><svg height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z' fill='currentColor'/></svg></div>
+    <div class='sound-toggle' id='soundToggle'><svg height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z' fill='currentColor'/></svg></div>
+
     <script type='text/javascript'>
     //<![CDATA[
-        /* AI Forge Core Script */
-        const config = {
-            soundEnabled: false,
-            postsPerSection: 3
-        };
+        const config = { soundEnabled: false, postsPerSection: 3 };
 
-        // Scroll Progress Bar
+        // Sound Engine
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+        function playSound(freq, type, dur) {
+            if (!config.soundEnabled) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + dur);
+        }
+
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.getElementById("scrollBar").style.width = scrolled + "%";
-
-            // Header Scroll Effect
-            const header = document.getElementById("mainHeader");
-            if (winScroll > 50) header.classList.add("scrolled");
-            else header.classList.remove("scrolled");
-
-            // Back to top visibility
-            const btt = document.getElementById("backToTop");
-            if (winScroll > 500) btt.classList.add("show");
-            else btt.classList.remove("show");
-
-            // Reveal animations on scroll
-            document.querySelectorAll('.reveal').forEach(el => {
-                let rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) el.classList.add('active');
-            });
+            document.getElementById("scrollBar").style.width = (winScroll / height) * 100 + "%";
+            document.getElementById("mainHeader").classList.toggle("scrolled", winScroll > 50);
+            document.getElementById("backToTop").classList.toggle("show", winScroll > 500);
+            document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active'); });
         };
 
-        // Back to top click
-        document.getElementById("backToTop").addEventListener("click", () => {
+        document.getElementById("backToTop").onclick = () => {
+            playSound(440, 'sine', 0.2);
             window.scrollTo({top: 0, behavior: 'smooth'});
-        });
+        };
 
-        // Reading Time Calculation
-        const postBody = document.getElementById("postBody");
-        if (postBody) {
-            const text = postBody.innerText;
-            const wpm = 225;
-            const words = text.trim().split(/\s+/).length;
-            const time = Math.ceil(words / wpm);
-            document.getElementById("readingTime").innerText = time + " min read";
-        }
-
-        // Sound Effects System
-        const soundContext = new (window.AudioContext || window.webkitAudioContext)();
-        function playTone(freq, type, duration) {
-            if (!config.soundEnabled) return;
-            const osc = soundContext.createOscillator();
-            const gain = soundContext.createGain();
-            osc.type = type;
-            osc.frequency.setValueAtTime(freq, soundContext.currentTime);
-            gain.gain.setValueAtTime(0.05, soundContext.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, soundContext.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(soundContext.destination);
-            osc.start();
-            osc.stop(soundContext.currentTime + duration);
-        }
-
-        document.querySelectorAll('a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => playTone(880, 'sine', 0.1));
-            el.addEventListener('click', () => playTone(440, 'sine', 0.2));
-        });
-
-        document.getElementById('soundToggle').addEventListener('click', function() {
+        document.getElementById("soundToggle").onclick = function() {
             config.soundEnabled = !config.soundEnabled;
             this.style.color = config.soundEnabled ? 'var(--accent-primary)' : 'var(--text-muted)';
-            this.style.borderColor = config.soundEnabled ? 'var(--accent-primary)' : 'var(--glass-border)';
-            if (config.soundEnabled && soundContext.state === 'suspended') soundContext.resume();
+            if (config.soundEnabled) playSound(880, 'square', 0.1);
+        };
+
+        function copyText(btn) {
+            const text = btn.nextElementSibling.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const old = btn.innerText; btn.innerText = 'Copied!';
+                playSound(660, 'sine', 0.1);
+                setTimeout(() => btn.innerText = old, 2000);
+            });
+        }
+
+        function share(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+            if (platform === 'twitter') shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+            else if (platform === 'facebook') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            else if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        // Reading Time Calculation
+        function initPostFeatures() {
+            const postBody = document.getElementById('postBody');
+            if (postBody && document.getElementById('readingTime')) {
+                const text = postBody.innerText;
+                const wpm = 225;
+                const words = text.trim().split(/\s+/).length;
+                const time = Math.ceil(words / wpm);
+                document.getElementById('readingTime').innerText = time + ' min read';
+            }
+        }
+        window.addEventListener('DOMContentLoaded', initPostFeatures);
+
+        document.addEventListener('mouseover', e => {
+            if (e.target.closest('a, button, .post-card')) playSound(150, 'triangle', 0.05);
         });
 
-        // Smart Content Control - Dynamic Post Fetching
         function fetchPosts(label, containerId, title) {
             const container = document.getElementById(containerId);
             if (!container) return;
-
-            const url = `/feeds/posts/default/-/${label}?alt=json-in-script&max-results=${config.postsPerSection}&callback=cb_${label}`;
             const script = document.createElement('script');
-            script.src = url;
+            script.src = `/feeds/posts/default/-/${label}?alt=json-in-script&max-results=${config.postsPerSection}&callback=cb_${label}`;
             document.head.appendChild(script);
-
             window[`cb_${label}`] = function(json) {
-                let html = `<div class="section-title">Explore ${title}</div><div class="card-grid">`;
+                let html = `<div class="section-title reveal">${title}</div><div class="card-grid">`;
                 if (json.feed.entry) {
                     json.feed.entry.forEach(entry => {
                         const link = entry.link.find(l => l.rel === 'alternate').href;
-                        const title = entry.title.$t;
-                        const snippet = entry.summary ? entry.summary.$t.substring(0, 100) : entry.content.$t.replace(/<[^>]*>/g, '').substring(0, 100);
                         const img = entry.media$thumbnail ? entry.media$thumbnail.url.replace('s72-c', 's600') : '';
-
-                        html += `
-                            <a href="${link}" class="post-card">
-                                ${img ? `<img src="${img}" class="card-img" loading="lazy" />` : `<div class="card-img skeleton"></div>`}
-                                <div class="card-body">
-                                    <div class="card-tag">${label}</div>
-                                    <h2 class="card-title">${title}</h2>
-                                    <p class="card-excerpt">${snippet}...</p>
-                                    <div class="card-footer">
-                                        <span class="read-more">Learn More <svg height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/></svg></span>
-                                    </div>
-                                </div>
-                            </a>
-                        `;
+                        html += `<a href="${link}" class="post-card reveal">
+                            ${img ? `<img src="${img}" class="card-img" />` : `<div class="card-img" style="background:var(--bg-secondary)"/>`}
+                            <div class="card-body"><div class="card-tag">${label}</div><h2 class="card-title">${entry.title.$t}</h2><div class="card-footer"><span class="read-more">Read Article</span></div></div>
+                        </a>`;
                     });
                 }
-                html += `</div>`;
-                container.innerHTML += html;
+                container.innerHTML += html + `</div>`;
             }
         }
 
-        // Initialize Homepage Sections
         if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
             fetchPosts('Tools', 'dynamic-sections-container', 'AI Tools');
-            fetchPosts('Guides', 'dynamic-sections-container', 'Mastery Guides');
-            fetchPosts('Earn', 'dynamic-sections-container', 'Profit Strategies');
+            fetchPosts('Guides', 'dynamic-sections-container', 'Guides');
+            fetchPosts('Earn', 'dynamic-sections-container', 'Earn');
         }
-
-        // Lazy Loading & Parallax (Lightweight)
-        document.addEventListener("DOMContentLoaded", () => {
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                window.addEventListener('scroll', () => {
-                    let offset = window.pageYOffset;
-                    hero.style.backgroundPositionY = offset * 0.7 + "px";
-                });
-            }
-        });
     //]]>
     </script>
 </body>
