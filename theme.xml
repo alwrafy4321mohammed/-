@@ -1,314 +1,820 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/gah/static/extensions' xmlns:data='http://www.google.com/adsense/search/ui' xmlns:expr='http://www.google.com/gah/static/extensions'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' dir='ltr' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/specs/schemas/2007/blog/b' xmlns:data='http://www.google.com/specs/schemas/2007/blog/data' xmlns:expr='http://www.google.com/specs/schemas/2007/blog/expr'>
 <head>
     <meta charset='UTF-8'/>
     <meta content='width=device-width, initial-scale=1.0, minimum-scale=1.0' name='viewport'/>
     <title><data:blog.pageTitle/></title>
 
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'/>
 
     <b:skin><![CDATA[
         :root {
-            --main-bg: #050b14;
-            --accent-color: #64ffda;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #e6f1ff;
-            --text-secondary: #8892b0;
+            --bg-main: #0B0F19;
+            --bg-secondary: #111827;
+            --accent-primary: #00F5A0;
+            --accent-secondary: #4F46E5;
+            --text-main: #FFFFFF;
+            --text-dim: #94A3B8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --header-height: 80px;
+            --transition-speed: 0.3s;
         }
 
-        @keyframes bgMotion {
-            0% { background-position: 0% 0%, 0% 0%; }
-            50% { background-position: 100% 100%, 50px 50px; }
-            100% { background-position: 0% 0%, 0% 0%; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background-color: var(--main-bg);
-            background-image: radial-gradient(circle at 50% 50%, rgba(10, 25, 47, 0.9), var(--main-bg)), url('https://www.transparenttextures.com/patterns/stardust.png');
-            background-attachment: fixed;
-            background-size: 200% 200%, auto;
-            animation: bgMotion 20s infinite alternate ease-in-out;
-            color: var(--text-primary);
+            background-color: var(--bg-main);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0;
+            line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        header {
-            background: rgba(10, 25, 47, 0.8); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000;
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .header-inner { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent-color); text-decoration: none; }
-
-        .main-container { max-width: 1200px; width: 92%; margin: 120px auto 60px; }
-
-        .page-nav-wrapper { margin-bottom: 40px; text-align: center; }
-        .PageList ul {
-            list-style: none !important;
-            padding: 0 !important;
-            display: flex !important;
-            justify-content: center !important;
-            gap: 10px !important;
-            flex-wrap: wrap !important;
-            margin: 0 auto !important;
-        }
-        .PageList li a {
-            background: var(--glass-bg) !important;
-            border: 1px solid var(--glass-border) !important;
-            color: var(--text-primary) !important;
-            padding: 8px 16px !important;
-            border-radius: 10px !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-            transition: 0.3s;
-            display: inline-block !important;
-            font-size: 0.85rem !important;
+        /* Glassmorphism utility */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
         }
 
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        a { text-decoration: none; color: inherit; transition: var(--transition-speed); }
+        ul { list-style: none; }
+
+        /* Main Container */
+        .main-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-area {
+            flex: 1;
+            padding-top: calc(var(--header-height) + 40px);
+            padding-bottom: 60px;
+        }
+
+        /* Header Styles */
+        #mainHeader {
+            height: var(--header-height);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            transition: var(--transition-speed);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
 
-        .post-card {
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .menu-toggle {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: pointer;
+            z-index: 3001;
+            transition: var(--transition-speed);
+        }
+        .menu-toggle:hover { color: var(--accent-primary); }
+
+        .header-actions { display: flex; align-items: center; gap: 15px; }
+
+        .btn-icon {
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-speed);
+        }
+
+        .btn-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(0, 245, 160, 0.2);
+        }
+
+        .search-btn { width: auto; padding: 0 18px; gap: 8px; font-size: 0.9rem; font-weight: 500; }
+
+        /* Search Modal */
+        #searchModal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 700px;
+            padding: 0 20px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px 25px;
+            color: #fff;
+            font-size: 1.2rem;
+            outline: none;
+            transition: var(--transition-speed);
+        }
+
+        .search-input:focus { border-color: var(--accent-primary); box-shadow: 0 0 20px rgba(0, 245, 160, 0.1); }
+
+        .search-suggestion-item {
+            padding: 15px 25px;
+            border-bottom: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: var(--transition-speed);
+            color: var(--text-dim);
+        }
+
+        .search-suggestion-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-primary);
+        }
+
+        .search-suggestion-item i { margin-right: 15px; width: 20px; text-align: center; }
+
+        .close-search {
+            position: absolute;
+            top: -60px;
+            right: 0;
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            cursor: pointer;
+        }
+
+        /* Sidebar */
+        #sidebarMenu {
+            position: fixed;
+            top: 0; left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: rgba(11, 15, 25, 0.98);
+            backdrop-filter: blur(25px);
+            z-index: 3000;
+            padding: 100px 40px;
+            transition: 0.5s cubic-bezier(0.85, 0, 0.15, 1);
+            border-right: 1px solid var(--glass-border);
+        }
+
+        #sidebarMenu.active { left: 0; }
+
+        .nav-list { display: flex; flex-direction: column; gap: 30px; }
+        .nav-item { font-size: 1.4rem; font-weight: 600; color: var(--text-dim); display: block; }
+        .nav-item:hover { color: var(--accent-primary); transform: translateX(10px); }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            z-index: 2999;
+        }
+
+        /* Post Grid & Cards */
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .post-card {
+            position: relative;
+            background: var(--bg-secondary);
+            border-radius: 24px;
             overflow: hidden;
-            transition: 0.3s ease;
-            text-decoration: none !important;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
 
-        .card-image-wrapper {
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 245, 160, 0.1);
+            border-color: var(--accent-primary);
+        }
+
+        .post-card-image {
             width: 100%;
-            height: 180px;
+            aspect-ratio: 16/9;
             overflow: hidden;
-            background: rgba(255,255,255,0.02);
+            background: #1a2234;
+        }
+
+        .post-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.6s ease;
+        }
+
+        .post-card:hover .post-card-image img { transform: scale(1.1); }
+
+        .post-card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .post-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        .post-card-snippet {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-card-footer {
+            margin-top: auto;
             display: flex;
             align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--glass-border);
+            justify-content: space-between;
         }
-        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card-content { padding: 20px; text-align: start; flex-grow: 1; }
-        .post-card-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.4; text-align: start; }
-        .post-card-snippet { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+        .read-more {
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        .post-single-container { max-width: 850px; margin: 0 auto; width: 100%; }
-        .post-content-body {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            padding: 25px;
+        .read-more i { transition: 0.3s; }
+        .post-card:hover .read-more i { transform: translateX(5px); }
+
+        /* Neon effects */
+        .neon-glow {
+            box-shadow: 0 0 10px rgba(0, 245, 160, 0.3);
+        }
+        .neon-text {
+            text-shadow: 0 0 8px rgba(0, 245, 160, 0.4);
+        }
+
+        /* Single Post/Page Styles */
+        .post-single {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            color: var(--accent-primary);
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .post-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .post-body img {
+            max-width: 100%;
+            height: auto;
             border-radius: 20px;
+            margin: 30px 0;
             border: 1px solid var(--glass-border);
-            box-sizing: border-box;
-            overflow-wrap: break-word;
-        }
-        .post-content-body h1 { font-size: 1.6rem; line-height: 1.3; margin-bottom: 20px; text-align: start; }
-        .post-body-text { line-height: 1.7; font-size: 1rem; color: #cbd5e1; text-align: start; }
-        .post-body-text img { max-width: 100% !important; height: auto !important; border-radius: 12px !important; margin: 20px 0 !important; }
-
-        @media (max-width: 600px) {
-            .main-container { margin-top: 100px; width: 94%; }
-            .post-content-body { padding: 20px; }
-            .post-content-body h1 { font-size: 1.4rem; }
-            .logo { font-size: 1.3rem; }
-            .posts-grid { grid-template-columns: 1fr; }
         }
 
-        footer { background: rgba(5, 11, 20, 0.9); padding: 40px 20px; border-top: 1px solid var(--glass-border); text-align: center; }
-        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; }
+        .post-body h2, .post-body h3 {
+            color: #fff;
+            margin: 40px 0 20px;
+        }
 
-        #post-fetch-config { display: none; }
+        /* Footer */
+        footer {
+            padding: 80px 20px 40px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(11, 15, 25, 0.5);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover { color: var(--accent-primary); }
+
+        .copyright {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Legal Page Special Layout */
+        .legal-page {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .back-home {
+            margin-top: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
     ]]></b:skin>
 </head>
 <body>
-    <header><div class='header-inner'><a class='logo' expr:href='data:blog.homepageUrl'>AIVenture</a></div></header>
+    <canvas id='bg-canvas'></canvas>
 
-    <div class='main-container'>
-        <div class='page-nav-wrapper'>
-            <b:section id='page-navigation' showaddelement='yes'>
-                <b:widget id='PageList1' locked='false' title='Pages' type='PageList'/>
-            </b:section>
+    <div class='sidebar-overlay' id='sidebarOverlay' onclick='toggleMenu(false)'></div>
+    <div id='sidebarMenu'>
+        <nav class='nav-list'>
+            <a class='nav-item' href='/search/label/AI Tools'>AI Tools</a>
+            <a class='nav-item' href='/search/label/Learn AI'>Learn AI</a>
+            <a class='nav-item' href='/search/label/AI Monetization'>AI Monetization</a>
+            <a class='nav-item' href='/search/label/AI Image Prompts'>AI Image Prompts</a>
+        </nav>
+    </div>
+
+    <header class='glass-effect' id='mainHeader'>
+        <div class='header-left'>
+            <div class='menu-toggle' onclick='toggleMenu(true)'><i class='fas fa-bars'></i></div>
+            <a class='logo' expr:href='data:blog.homepageUrl'>AI FORGE LAB</a>
         </div>
 
-        <b:section id='main' showaddelement='yes'>
-            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-                <b:includable id='main'>
-                    <b:if cond='data:view.isPost'>
-                        <div class='post-single-container'>
-                            <b:loop values='data:posts' var='post'>
-                                <article class='post-content-body'>
-                                    <h1><data:post.title/></h1>
-                                    <div class='post-body-text'><data:post.body/></div>
-                                </article>
-                            </b:loop>
-                        </div>
-                    <b:else/>
-                        <b:if cond='data:view.isHomepage or data:view.isLabelSearch'>
-                            <div class='posts-grid'>
+        <div class='header-actions'>
+            <button class='btn-icon search-btn' onclick='toggleSearch(true)'>
+                <i class='fas fa-search'></i>
+                <span>Advanced AI Search</span>
+            </button>
+            <button class='btn-icon' onclick='dynamicReset()' title='Reset / Reload'>
+                <i class='fas fa-sync-alt'></i>
+            </button>
+        </div>
+    </header>
+
+    <div id='searchModal'>
+        <div class='search-container'>
+            <div class='search-input-wrapper'>
+                <span class='close-search' onclick='toggleSearch(false)'><i class='fas fa-times'></i></span>
+                <form action='/search' method='get'>
+                    <input autocomplete='off' class='search-input' name='q' placeholder='Search across AI tools, articles, and pages...' type='text'/>
+                </form>
+            </div>
+            <div class='search-suggestions' id='searchSuggestions'></div>
+        </div>
+    </div>
+
+    <div class='main-wrapper'>
+        <main class='content-area'>
+            <b:section id='main' showaddelement='yes'>
+                <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+                    <b:includable id='main'>
+                        <b:if cond='data:view.isMultipleItems'>
+                            <div class='post-grid'>
                                 <b:loop values='data:posts' var='post'>
-                                    <a class='post-card' expr:href='data:post.url'>
-                                        <div class='card-image-wrapper'>
+                                    <article class='post-card'>
+                                        <a class='post-card-image' expr:href='data:post.url'>
                                             <b:if cond='data:post.firstImageUrl'>
-                                                <img expr:src='resizeImage(data:post.firstImageUrl, 500, "1:1")' loading='lazy'/>
-                                            <b:elseif cond='data:post.thumbnailUrl'/>
-                                                <img expr:src='resizeImage(data:post.thumbnailUrl, 500, "1:1")' loading='lazy'/>
+                                                <img expr:src='resizeImage(data:post.firstImageUrl, 600, "16:9")' loading='lazy'/>
                                             <b:else/>
-                                                <div class='card-icon-placeholder'><i class='fas fa-image'/></div>
+                                                <div class='placeholder-img' style='width:100%; height:100%; background: linear-gradient(45deg, #111827, #1e293b); display: flex; align-items: center; justify-content: center;'><i class='fas fa-robot' style='font-size: 3rem; color: var(--accent-secondary); opacity: 0.3;'></i></div>
                                             </b:if>
-                                        </div>
-                                        <div class='card-content'>
-                                            <h2 class='post-card-title'><data:post.title/></h2>
+                                        </a>
+                                        <div class='post-card-content'>
+                                            <h2 class='post-card-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
                                             <div class='post-card-snippet'><data:post.snippet/></div>
+                                            <div class='post-card-footer'>
+                                                <span class='reading-time'><i class='far fa-clock'></i> 5 min read</span>
+                                                <a class='read-more' expr:href='data:post.url'>Read More <i class='fas fa-arrow-right'></i></a>
+                                            </div>
                                         </div>
-                                    </a>
+                                    </article>
                                 </b:loop>
                             </div>
                         <b:else/>
-                            <b:if cond='data:view.isPage'>
-                                <div id='static-page-posts-grid' class='posts-grid'>
-                                    <p style='text-align: center; color: var(--text-secondary); padding: 50px; grid-column: 1/-1;'>جاري تحميل المشاركات...</p>
-                                </div>
-                                <b:loop values='data:posts' var='post'>
-                                    <div class='post-body-text'><data:post.body/></div>
-                                </b:loop>
-                            </b:if>
+                            <b:loop values='data:posts' var='post'>
+                                <article class='post-single'>
+                                    <b:if cond='data:view.isPost'>
+                                        <h1 class='post-title'><data:post.title/></h1>
+                                        <div class='post-meta'>
+                                            <span><i class='far fa-calendar'></i> <data:post.date/></span>
+                                            <span><i class='far fa-user'></i> <data:post.author/></span>
+                                            <span class='reading-time-dynamic'></span>
+                                        </div>
+                                        <div class='post-body entry-content' expr:id='"post-body-" + data:post.id'>
+                                            <data:post.body/>
+                                        </div>
+                                    <b:elseif cond='data:view.isPage'/>
+                                        <div class='legal-page'>
+                                            <h1 class='post-title'><data:post.title/></h1>
+                                            <div class='post-body entry-content' expr:id='"post-body-" + data:post.id'>
+                                                <data:post.body/>
+                                            </div>
+                                            <a class='back-home' expr:href='data:blog.homepageUrl'><i class='fas fa-arrow-left'></i> Back to Intelligence Hub</a>
+                                        </div>
+                                    </b:if>
+
+                                    <b:if cond='data:view.isPost'>
+                                        <!-- Post Schema -->
+                                        <script type='application/ld+json'>
+                                        {
+                                          "@context": "https://schema.org",
+                                          "@type": "BlogPosting",
+                                          "mainEntityOfPage": {
+                                            "@type": "WebPage",
+                                            "@id": "<data:post.url.canonical.jsonEscaped/>"
+                                          },
+                                          "headline": "<data:post.title.jsonEscaped/>",
+                                          "image": "<data:post.firstImageUrl.jsonEscaped/>",
+                                          "author": {
+                                            "@type": "Person",
+                                            "name": "<data:post.author.jsonEscaped/>"
+                                          },
+                                          "publisher": {
+                                            "@type": "Organization",
+                                            "name": "AI ForgeLab",
+                                            "logo": {
+                                              "@type": "ImageObject",
+                                              "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEis7u5p-W9V5u1_jX0p9xVl1-t7oYl-p8_J6S-Vz7U-t-t-t/s1600/logo.png"
+                                            }
+                                          },
+                                          "datePublished": "<data:post.timestampISO8601/>"
+                                        }
+                                        </script>
+                                    </b:if>
+                                </article>
+                            </b:loop>
                         </b:if>
-                    </b:if>
-                </b:includable>
-            </b:widget>
-        </b:section>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+        </main>
     </div>
 
     <footer>
         <div class='footer-links'>
-            <a expr:href='data:blog.homepageUrl'>Home</a>
-            <a href='/p/about-us.html'>About Us</a>
-            <a href='/p/contact-us.html'>Contact Us</a>
+            <a href='/p/about-contact.html'>About &amp; Contact</a>
             <a href='/p/privacy-policy.html'>Privacy Policy</a>
-            <a href='/p/terms-and-conditions.html'>Terms and Conditions</a>
+            <a href='/p/terms-of-service.html'>Terms of Service</a>
             <a href='/p/disclaimer.html'>Disclaimer</a>
+            <a href='/p/affiliate-disclosure.html'>Affiliate Disclosure</a>
         </div>
-        <p>© 2026 AIVenture | Neural Interface v7.0</p>
+        <p class='copyright'>&#169; 2026 AI FORGE LAB | Next-Generation AI Interface</p>
     </footer>
 
-    <script type='text/javascript'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'></script>
+    <script>
     //<![CDATA[
-        function loadPostsByLabel(label, targetElementId) {
-            var blogUrl = window.location.origin;
-            var script = document.createElement('script');
-            script.src = blogUrl + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json-in-script&callback=displayPosts';
-            document.head.appendChild(script);
+        (function() {
+            const canvas = document.getElementById('bg-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 
-            window.displayPosts = function(json) {
-                var postsContainer = document.getElementById(targetElementId);
-                if (!postsContainer) return;
-                postsContainer.innerHTML = '';
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-                if (json.feed && json.feed.entry && json.feed.entry.length > 0) {
-                    json.feed.entry.forEach(function(entry) {
-                        var postUrl = '';
-                        for (var i = 0; i < entry.link.length; i++) {
-                            if (entry.link[i].rel == 'alternate') {
-                                postUrl = entry.link[i].href;
-                                break;
-                            }
+            const particlesCount = 300; // Fewer particles for better line performance
+            const positions = new Float32Array(particlesCount * 3);
+            const colors = new Float32Array(particlesCount * 3);
+            const velocities = new Float32Array(particlesCount * 3);
+
+            const color1 = new THREE.Color('#00F5A0');
+            const color2 = new THREE.Color('#4F46E5');
+
+            for(let i = 0; i < particlesCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 10;
+                positions[i+1] = (Math.random() - 0.5) * 10;
+                positions[i+2] = (Math.random() - 0.5) * 10;
+
+                velocities[i] = (Math.random() - 0.5) * 0.01;
+                velocities[i+1] = (Math.random() - 0.5) * 0.01;
+                velocities[i+2] = (Math.random() - 0.5) * 0.01;
+
+                const mixedColor = color1.clone().lerp(color2, Math.random());
+                colors[i] = mixedColor.r;
+                colors[i+1] = mixedColor.g;
+                colors[i+2] = mixedColor.b;
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.03,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+
+            // Neural Connections
+            const lineGeometry = new THREE.BufferGeometry();
+            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00F5A0, transparent: true, opacity: 0.2 });
+            const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lines);
+
+            // Data Streams
+            const streamsCount = 50;
+            const streamPositions = new Float32Array(streamsCount * 3);
+            for(let i = 0; i < streamsCount * 3; i += 3) {
+                streamPositions[i] = (Math.random() - 0.5) * 10;
+                streamPositions[i+1] = Math.random() * 10;
+                streamPositions[i+2] = (Math.random() - 0.5) * 10;
+            }
+            const streamGeometry = new THREE.BufferGeometry();
+            streamGeometry.setAttribute('position', new THREE.BufferAttribute(streamPositions, 3));
+            const streamMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0x4F46E5, transparent: true, opacity: 0.5 });
+            const streams = new THREE.Points(streamGeometry, streamMaterial);
+            scene.add(streams);
+
+            camera.position.z = 3;
+
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX / window.innerWidth) - 0.5;
+                mouseY = (event.clientY / window.innerHeight) - 0.5;
+            });
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Move particles
+                const posArray = points.geometry.attributes.position.array;
+                const linePositions = [];
+                for(let i = 0; i < particlesCount * 3; i += 3) {
+                    posArray[i] += velocities[i];
+                    posArray[i+1] += velocities[i+1];
+                    posArray[i+2] += velocities[i+2];
+
+                    if (Math.abs(posArray[i]) > 5) velocities[i] *= -1;
+                    if (Math.abs(posArray[i+1]) > 5) velocities[i+1] *= -1;
+                    if (Math.abs(posArray[i+2]) > 5) velocities[i+2] *= -1;
+
+                    // Connection logic
+                    for(let j = i + 3; j < particlesCount * 3; j += 3) {
+                        const dx = posArray[i] - posArray[j];
+                        const dy = posArray[i+1] - posArray[j+1];
+                        const dz = posArray[i+2] - posArray[j+2];
+                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                        if (dist < 1.5) {
+                            linePositions.push(posArray[i], posArray[i+1], posArray[i+2]);
+                            linePositions.push(posArray[j], posArray[j+1], posArray[j+2]);
                         }
-                        var rawTitle = entry.title.$t || '';
-                        var postTitle = rawTitle.split('{')[0].split('<')[0].trim();
-                        if (postTitle === '') postTitle = 'مشاركة بدون عنوان';
-
-                        var postImage = '';
-                        if (entry.media$thumbnail) {
-                            postImage = entry.media$thumbnail.url.replace('s72-c', 's1600');
-                        } else if (entry.content && entry.content.$t.match(/<img[^>]+src="([^">]+)"/)) {
-                            postImage = entry.content.$t.match(/<img[^>]+src="([^">]+)"/)[1];
-                        }
-
-                        var rawText = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : '');
-                        var cleanText = rawText.replace(/<(style|script)[^>]*>[\s\S]*?<\/\1>/gi, '');
-                        cleanText = cleanText.replace(/<[^>]*>?/gm, '').trim();
-                        var postSnippet = cleanText.substring(0, 100) + (cleanText.length > 100 ? '...' : '');
-
-                        var imageHtml = postImage ? '<img src="' + postImage + '" loading="lazy"/>' : '<div class="card-icon-placeholder"><i class="fas fa-image"></i></div>';
-
-                        var postCard = document.createElement('a');
-                        postCard.href = postUrl;
-                        postCard.className = 'post-card';
-                        postCard.innerHTML = '<div class="card-image-wrapper">' + imageHtml + '</div>' +
-                                             '<div class="card-content">' +
-                                             '<h2 class="post-card-title">' + postTitle + '</h2>' +
-                                             '<div class="post-card-snippet">' + postSnippet + '</div>' +
-                                             '</div>';
-                        postsContainer.appendChild(postCard);
-                    });
-                } else {
-                    postsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;">' +
-                                             '<p style="color: var(--text-secondary); margin-bottom: 10px;">لا توجد مشاركات مرتبطة بهذا التصنيف حالياً.</p>' +
-                                             '<p style="font-size: 0.8rem; color: #555;">التصنيف المطلوب: <b>' + label + '</b></p></div>';
+                    }
                 }
-            };
-        }
+                points.geometry.attributes.position.needsUpdate = true;
 
-        function initializeStaticPagePosts() {
-            var postsContainerId = 'static-page-posts-grid';
-            var targetContainer = document.getElementById(postsContainerId);
-            if (!targetContainer) return;
+                lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
 
-            var configEl = document.getElementById('post-fetch-config');
-            var labelToFetch = '';
+                // Move streams
+                const streamArray = streams.geometry.attributes.position.array;
+                for(let i = 0; i < streamsCount * 3; i += 3) {
+                    streamArray[i+1] -= 0.05;
+                    if (streamArray[i+1] < -5) streamArray[i+1] = 5;
+                }
+                streams.geometry.attributes.position.needsUpdate = true;
 
-            if (configEl && configEl.getAttribute('data-label')) {
-                labelToFetch = configEl.getAttribute('data-label');
+                points.rotation.y += 0.001;
+                points.position.x += (mouseX * 0.5 - points.position.x) * 0.05;
+                points.position.y += (-mouseY * 0.5 - points.position.y) * 0.05;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+        })();
+
+        function toggleSearch(show) {
+            const modal = document.getElementById('searchModal');
+            modal.style.display = show ? 'flex' : 'none';
+            if (show) {
+                const input = document.querySelector('.search-input');
+                input.focus();
+                document.body.style.overflow = 'hidden';
+                initAutocomplete(input);
             } else {
-                labelToFetch = document.title.split(' : ')[0].split(' | ')[0].trim();
-            }
-
-            if (labelToFetch) {
-                loadPostsByLabel(labelToFetch, postsContainerId
-);
+                document.body.style.overflow = 'auto';
             }
         }
 
-        function cleanupSnippets() {
-            var snippets = document.querySelectorAll('.post-card-snippet');
-            snippets.forEach(function(snippet) {
-                var text = snippet.textContent;
-                // Enhanced regex to catch CSS blocks and selectors even if partially cut off
-                var cleanText = text.replace(/\{[\s\S]*?\}/g, ''); // Remove anything between { }
-                cleanText = cleanText.replace(/[.#]?[a-z0-9_-]+\s*\{/gi, ''); // Remove selectors before {
-                cleanText = cleanText.replace(/\.[a-z0-9_-]+|#[a-z0-9_-]+|property:\s*[^;]+;/gi, ''); // Remove class/id/props
-                cleanText = cleanText.replace(/[a-z-]+\s*:\s*[^;{}]+;?/gi, ''); // Remove any key:value;
-                cleanText = cleanText.replace(/[}{}:;]/g, ''); // Remove stray characters
+        function initAutocomplete(input) {
+            const suggestions = [
+                { text: 'AI Tools', label: 'Tools', icon: 'fas fa-tools' },
+                { text: 'Learn AI', label: 'Learn', icon: 'fas fa-graduation-cap' },
+                { text: 'AI Monetization', label: 'Monetization', icon: 'fas fa-dollar-sign' },
+                { text: 'AI Image Prompts', label: 'Prompts', icon: 'fas fa-terminal' }
+            ];
 
-                cleanText = cleanText.trim();
-                if (cleanText !== text && cleanText !== "") {
-                    snippet.textContent = cleanText;
+            const suggestionBox = document.getElementById('searchSuggestions');
+
+            input.addEventListener('input', (e) => {
+                const val = e.target.value.toLowerCase();
+                suggestionBox.innerHTML = '';
+
+                if (val.length > 1) {
+                    const filtered = suggestions.filter(s => s.text.toLowerCase().includes(val));
+                    filtered.forEach(s => {
+                        const div = document.createElement('div');
+                        div.className = 'search-suggestion-item';
+                        div.innerHTML = `<i class='${s.icon}'></i> ${s.text}`;
+                        div.onclick = () => {
+                            window.location.href = '/search/label/' + s.label;
+                        };
+                        suggestionBox.appendChild(div);
+                    });
                 }
             });
         }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initializeStaticPagePosts();
-                cleanupSnippets();
+        function toggleMenu(show) {
+            const sidebar = document.getElementById('sidebarMenu');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (show) {
+                sidebar.classList.add('active');
+                overlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.remove('active');
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // 3D Tilt Effect
+        function initTilt() {
+            const cards = document.querySelectorAll('.post-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+
+                    card.style.transform = `perspective(1000px) translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) translateY(0) rotateX(0) rotateY(0)';
+                });
             });
-        } else {
-            initializeStaticPagePosts();
-            cleanupSnippets();
+        }
+        document.addEventListener('DOMContentLoaded', initTilt);
+
+        // Reading Time Calculation
+        function calculateReadingTime() {
+            const bodies = document.querySelectorAll('.post-body');
+            bodies.forEach(body => {
+                const text = body.innerText;
+                const wordsPerMinute = 200;
+                const words = text.split(/\s+/).length;
+                const minutes = Math.ceil(words / wordsPerMinute);
+                const display = body.closest('article').querySelector('.reading-time-dynamic');
+                if (display) display.innerHTML = `<i class='far fa-clock'></i> ${minutes} min read`;
+            });
+        }
+        document.addEventListener('DOMContentLoaded', calculateReadingTime);
+
+        // Scroll Reveal
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.post-card, .post-single, .reveal').forEach(el => {
+                el.classList.add('reveal');
+                observer.observe(el);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', initReveal);
+
+        function dynamicReset() {
+            // Reset Search UI
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) searchInput.value = '';
+            toggleSearch(false);
+
+            // Re-reveal cards with a slight delay for effect
+            const cards = document.querySelectorAll('.post-card');
+            cards.forEach(card => {
+                card.classList.remove('active');
+                setTimeout(() => card.classList.add('active'), 100);
+            });
+
+            console.log('UI State Reset Dynamically');
         }
     //]]>
     </script>
