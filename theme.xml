@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/gah/static/extensions' xmlns:data='http://www.google.com/adsense/search/ui' xmlns:expr='http://www.google.com/gah/static/extensions'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/gh/static/scheme/b' xmlns:data='http://www.google.com/gh/static/scheme/data' xmlns:expr='http://www.google.com/gh/static/scheme/expr'>
 <head>
     <meta charset='UTF-8'/>
     <meta content='width=device-width, initial-scale=1.0, minimum-scale=1.0' name='viewport'/>
@@ -76,8 +76,8 @@
             100% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); border-color: var(--glass-border); }
         }
 
-        .reveal { opacity: 0; transition: var(--transition); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        .js-enabled .reveal { opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .js-enabled .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Sticky Header */
         #mainHeader {
@@ -329,8 +329,11 @@
             font-size: 1.05rem;
             line-height: 1.8;
             color: var(--text-main) !important;
+            overflow: visible !important;
         }
         .post-body img { max-width: 100%; height: auto; display: block; margin: 30px auto; border-radius: 12px; }
+        .post-body blockquote { border-left: 4px solid var(--accent-primary); padding: 15px 25px; margin: 20px 0; background: var(--glass); font-style: italic; }
+        .post-body pre, .post-body code { font-family: 'Courier New', monospace; background: #070a11; padding: 5px 10px; border-radius: 6px; color: var(--accent-primary); }
         .social-share { margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
 
         /* Responsive Overrides */
@@ -388,7 +391,7 @@
         .sound-toggle { position: fixed; bottom: 30px; left: 30px; background: var(--bg-secondary); border: 1px solid var(--glass-border); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; }
     ]]></b:skin>
 </head>
-<body>
+<body class='js-enabled'>
     <div class='progress-container'><div class='progress-bar' id='scrollBar'/></div>
 
     <header id='mainHeader'>
@@ -469,13 +472,25 @@
                         </div>
                     </b:includable>
                     <b:includable id='main'>
-                        <b:if cond='data:view.isPost'>
+                        <b:if cond='data:view.isSingleItem'>
                             <b:loop values='data:posts' var='post'>
                                 <article class='post-container'>
                                     <header class='post-header'>
-                                        <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if></div>
+                                        <div class='card-tag'>
+                                            <b:if cond='data:post.labels'>
+                                                <data:post.labels.first.name/>
+                                            <b:else/>
+                                                <b:if cond='data:view.isPage'>Official Page<b:else/>AI Forge</b:if>
+                                            </b:if>
+                                        </div>
                                         <h1><data:post.title/></h1>
-                                        <div class='post-meta'><span><data:post.date/></span> • <span id='readingTime'/></div>
+                                        <div class='post-meta'>
+                                            <b:if cond='data:view.isPost'>
+                                                <span><data:post.date/></span> • <span class='reading-time'/>
+                                            <b:else/>
+                                                AI ForgeLab Official Content
+                                            </b:if>
+                                        </div>
                                     </header>
 
                                     <b:if cond='data:post.firstImageUrl'>
@@ -484,78 +499,73 @@
                                         </div>
                                     </b:if>
 
-                                    <div class='post-body' id='postBody'>
+                                    <div class='post-body'>
                                         <data:post.body/>
                                     </div>
 
-                                    <div class='social-share'>
-                                        <div class='section-title'>Share this post</div>
-                                        <div style='display: flex; gap: 10px;'>
-                                            <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
-                                            <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
-                                            <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+                                    <b:if cond='data:view.isPost'>
+                                        <div class='social-share'>
+                                            <div class='section-title'>Share this post</div>
+                                            <div style='display: flex; gap: 10px;'>
+                                                <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
+                                                <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
+                                                <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </b:if>
                                 </article>
                             </b:loop>
-                        <b:elseif cond='data:view.isPage'/>
-                            <b:loop values='data:posts' var='post'>
-                                <article class='post-container'>
-                                    <header class='post-header'>
-                                        <div class='card-tag'>Legal / Info</div>
-                                        <h1><data:post.title/></h1>
-                                        <div class='post-meta'>AI ForgeLab Official Content</div>
-                                    </header>
-                                    <div class='post-body' id='postBody'>
-                                        <data:post.body/>
-                                    </div>
-                                </article>
-                            </b:loop>
-
                         <b:else/>
                             <div class='section-title'>
                                 <b:if cond='data:view.isLabelSearch'>Latest in <data:view.search.label/><b:else/>Latest Updates</b:if>
                             </div>
-                            <div class='card-grid'>
-                                <b:loop index='i' values='data:posts' var='post'>
-                                    <b:with value='data:post.labels any (l => l.name == "FeaturedPrompt")' var='isFeatured'>
-                                    <a expr:class='data:isFeatured ? "post-card reveal prompt-of-the-day" : "post-card reveal"' expr:href='data:post.url'>
-                                        <b:with value='data:post.featuredImage ?: data:post.firstImageUrl' var='postImg'>
-                                            <b:if cond='data:postImg'>
-                                                <img class='card-img' expr:src='resizeImage(data:postImg, 800, "16:9")' loading='lazy'/>
-                                            <b:else/>
-                                                <div class='card-placeholder'>
-                                                    <svg height='48' viewBox='0 0 24 24' width='48' xmlns='http://www.w3.org/2000/svg'><path d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z' fill='currentColor'/></svg>
-                                                </div>
-                                            </b:if>
-                                        </b:with>
-                                        <div class='card-body'>
-                                            <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI News</b:if></div>
-                                            <h2 class='card-title'><data:post.title/></h2>
 
-                                            <b:with value='data:post.labels any (l => l.name == "Prompts")' var='isPrompt'>
-                                                <b:if cond='data:isPrompt'>
-                                                    <div class='prompt-box'>
-                                                        <button class='copy-btn' onclick='event.preventDefault(); event.stopPropagation(); copyText(this)'>Copy</button>
-                                                        <div class='prompt-text-content'><data:post.snippet/></div>
-                                                    </div>
-                                                    <div class='generator-btns'>
-                                                        <a class='gen-btn' href='https://www.midjourney.com' onclick='event.stopPropagation();' target='_blank'>Midjourney</a>
-                                                        <a class='gen-btn' href='https://www.leonardo.ai' onclick='event.stopPropagation();' target='_blank'>Leonardo AI</a>
-                                                        <a class='gen-btn' href='https://clipdrop.co/stable-diffusion' onclick='event.stopPropagation();' target='_blank'>Stable Diffusion</a>
-                                                    </div>
+                            <b:if cond='data:posts.empty'>
+                                <div class='post-container' style='text-align:center;'>
+                                    <p>No posts found. Stay tuned for updates!</p>
+                                </div>
+                            <b:else/>
+                                <div class='card-grid'>
+                                    <b:loop index='i' values='data:posts' var='post'>
+                                        <b:with value='data:post.labels any (l => l.name == "FeaturedPrompt")' var='isFeatured'>
+                                        <a expr:class='data:isFeatured ? "post-card reveal prompt-of-the-day" : "post-card reveal"' expr:href='data:post.url'>
+                                            <b:with value='data:post.featuredImage ?: data:post.firstImageUrl' var='postImg'>
+                                                <b:if cond='data:postImg'>
+                                                    <img class='card-img' expr:src='resizeImage(data:postImg, 800, "16:9")' loading='lazy'/>
                                                 <b:else/>
-                                                    <p class='card-excerpt'><data:post.snippet/></p>
+                                                    <div class='card-placeholder'>
+                                                        <svg height='48' viewBox='0 0 24 24' width='48' xmlns='http://www.w3.org/2000/svg'><path d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z' fill='currentColor'/></svg>
+                                                    </div>
                                                 </b:if>
                                             </b:with>
+                                            <div class='card-body'>
+                                                <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI News</b:if></div>
+                                                <h2 class='card-title'><data:post.title/></h2>
 
-                                            <div class='card-footer'><span class='read-more'>Read Article</span></div>
-                                        </div>
-                                    </a>
-                                    </b:with>
-                                </b:loop>
-                            </div>
-                            <b:include name='nextprev'/>
+                                                <b:with value='data:post.labels any (l => l.name == "Prompts")' var='isPrompt'>
+                                                    <b:if cond='data:isPrompt'>
+                                                        <div class='prompt-box'>
+                                                            <button class='copy-btn' onclick='event.preventDefault(); event.stopPropagation(); copyText(this)'>Copy</button>
+                                                            <div class='prompt-text-content'><data:post.snippet/></div>
+                                                        </div>
+                                                        <div class='generator-btns'>
+                                                            <a class='gen-btn' href='https://www.midjourney.com' onclick='event.stopPropagation();' target='_blank'>Midjourney</a>
+                                                            <a class='gen-btn' href='https://www.leonardo.ai' onclick='event.stopPropagation();' target='_blank'>Leonardo AI</a>
+                                                            <a class='gen-btn' href='https://clipdrop.co/stable-diffusion' onclick='event.stopPropagation();' target='_blank'>Stable Diffusion</a>
+                                                        </div>
+                                                    <b:else/>
+                                                        <p class='card-excerpt'><data:post.snippet/></p>
+                                                    </b:if>
+                                                </b:with>
+
+                                                <div class='card-footer'><span class='read-more'>Read Article</span></div>
+                                            </div>
+                                        </a>
+                                        </b:with>
+                                    </b:loop>
+                                </div>
+                                <b:include name='nextprev'/>
+                            </b:if>
                         </b:if>
                     </b:includable>
                 </b:widget>
@@ -607,14 +617,23 @@
             osc.start(); osc.stop(audioCtx.currentTime + dur);
         }
 
-        window.onscroll = function() {
+        function handleScroll() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scrollBar").style.width = (winScroll / height) * 100 + "%";
-            document.getElementById("mainHeader").classList.toggle("scrolled", winScroll > 50);
-            document.getElementById("backToTop").classList.toggle("show", winScroll > 500);
-            document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active'); });
-        };
+            const scrollBar = document.getElementById("scrollBar");
+            if (scrollBar) scrollBar.style.width = (winScroll / (height || 1)) * 100 + "%";
+
+            const mainHeader = document.getElementById("mainHeader");
+            if (mainHeader) mainHeader.classList.toggle("scrolled", winScroll > 50);
+
+            const backToTop = document.getElementById("backToTop");
+            if (backToTop) backToTop.classList.toggle("show", winScroll > 500);
+
+            document.querySelectorAll('.reveal:not(.active)').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+            });
+        }
+        window.onscroll = handleScroll;
 
         document.getElementById("backToTop").onclick = () => {
             playSound(440, 'sine', 0.2);
@@ -665,16 +684,26 @@
 
         // Reading Time Calculation
         function initPostFeatures() {
-            const postBody = document.getElementById('postBody');
-            if (postBody && document.getElementById('readingTime')) {
-                const text = postBody.innerText;
-                const wpm = 225;
-                const words = text.trim().split(/\s+/).length;
-                const time = Math.ceil(words / wpm);
-                document.getElementById('readingTime').innerText = time + ' min read';
+            const postBodies = document.querySelectorAll('.post-body');
+            const timeLabels = document.querySelectorAll('.reading-time');
+
+            if (postBodies.length > 0 && timeLabels.length > 0) {
+                postBodies.forEach((body, index) => {
+                    if (timeLabels[index]) {
+                        const text = body.innerText;
+                        const wpm = 225;
+                        const words = text.trim().split(/\s+/).length;
+                        const time = Math.ceil(words / wpm);
+                        timeLabels[index].innerText = time + ' min read';
+                    }
+                });
             }
         }
-        window.addEventListener('DOMContentLoaded', initPostFeatures);
+        window.addEventListener('DOMContentLoaded', () => {
+            initPostFeatures();
+            handleScroll();
+        });
+        window.addEventListener('load', handleScroll);
 
         document.addEventListener('mouseover', e => {
             if (e.target.closest('a, button, .post-card')) playSound(150, 'triangle', 0.05);
