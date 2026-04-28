@@ -76,7 +76,8 @@
             100% { box-shadow: 0 0 10px rgba(0, 245, 160, 0.2); border-color: var(--glass-border); }
         }
 
-        .js-enabled .reveal { opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .reveal { transition: var(--transition); }
+        .js-enabled .reveal { opacity: 0; transform: translateY(20px); }
         .js-enabled .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Sticky Header */
@@ -440,6 +441,8 @@
                 <a href='/search/label/Prompts'>Prompts</a>
                 <a href='/p/contact.html'>Contact</a>
                 <a href='/p/about.html'>About</a>
+                <a href='/p/privacy-policy.html'>Privacy Policy</a>
+                <a href='/p/terms-of-service.html'>Terms of Service</a>
             </div>
         </div>
     </header>
@@ -472,21 +475,7 @@
                         </div>
                     </b:includable>
                     <b:includable id='main'>
-                        <b:if cond='data:view.isPage'>
-                            <!-- STATIC PAGE LAYOUT -->
-                            <b:loop values='data:posts' var='post'>
-                                <article class='post-container'>
-                                    <header class='post-header'>
-                                        <div class='card-tag'>Official Page</div>
-                                        <h1><data:post.title/></h1>
-                                    </header>
-                                    <div class='post-body' id='postBody'>
-                                        <data:post.body/>
-                                    </div>
-                                </article>
-                            </b:loop>
-                        <b:elseif cond='data:view.isPost'/>
-                            <!-- BLOG POST LAYOUT -->
+                        <b:if cond='data:view.isSingleItem'>
                             <b:loop values='data:posts' var='post'>
                                 <article class='post-container'>
                                     <header class='post-header'>
@@ -494,12 +483,16 @@
                                             <b:if cond='data:post.labels'>
                                                 <data:post.labels.first.name/>
                                             <b:else/>
-                                                AI Forge
+                                                <b:if cond='data:view.isPage'>Official Page<b:else/>AI Forge</b:if>
                                             </b:if>
                                         </div>
                                         <h1><data:post.title/></h1>
                                         <div class='post-meta'>
-                                            <span><data:post.date/></span> • <span class='reading-time'/>
+                                            <b:if cond='data:view.isPost'>
+                                                <span><data:post.date/></span> • <span class='reading-time'/>
+                                            <b:else/>
+                                                AI ForgeLab Official Content
+                                            </b:if>
                                         </div>
                                     </header>
 
@@ -509,21 +502,24 @@
                                         </div>
                                     </b:if>
 
-                                    <div class='post-body'>
+                                    <div class='post-body' id='postBody'>
                                         <data:post.body/>
                                     </div>
 
-                                    <div class='social-share'>
-                                        <div class='section-title'>Share this post</div>
-                                        <div style='display: flex; gap: 10px;'>
-                                            <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
-                                            <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
-                                            <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+                                    <b:if cond='data:view.isPost'>
+                                        <div class='social-share'>
+                                            <div class='section-title'>Share this post</div>
+                                            <div style='display: flex; gap: 10px;'>
+                                                <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
+                                                <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
+                                                <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </b:if>
                                 </article>
                             </b:loop>
                         <b:else/>
+                            <!-- INDEX / SEARCH / LABEL VIEW -->
                             <div class='section-title'>
                                 <b:if cond='data:view.isLabelSearch'>Latest in <data:view.search.label/><b:else/>Latest Updates</b:if>
                             </div>
@@ -595,8 +591,8 @@
         <ul class='footer-links-minimal'>
             <li><a href='/p/about.html'>About</a></li>
             <li><a href='/p/contact.html'>Contact</a></li>
-            <li><a href='/p/privacy.html'>Privacy Policy</a></li>
-            <li><a href='/p/terms.html'>Terms of Service</a></li>
+            <li><a href='/p/privacy-policy.html'>Privacy Policy</a></li>
+            <li><a href='/p/terms-of-service.html'>Terms of Service</a></li>
             <li><a href='/p/disclaimer.html'>Disclaimer</a></li>
             <li><a href='/p/affiliate-disclosure.html'>Affiliate Disclosure</a></li>
         </ul>
