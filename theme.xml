@@ -33,6 +33,10 @@
             <Variable name="text.main" description="Primary Text" type="color" default="#E5E7EB"/>
             <Variable name="text.muted" description="Muted Text" type="color" default="#9CA3AF"/>
         </Group>
+        <Group description="Typography" title="Fonts">
+            <Variable name="font.heading" description="Heading Font" type="string" default="'Inter', sans-serif"/>
+            <Variable name="font.body" description="Body Font" type="string" default="'Inter', sans-serif"/>
+        </Group>
         <Group description="Social Links" title="Social Media">
             <Variable name="social.twitter" description="Twitter URL" type="string" default="#"/>
             <Variable name="social.facebook" description="Facebook URL" type="string" default="#"/>
@@ -62,11 +66,12 @@
         body {
             background-color: var(--bg-main);
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: $(font.body);
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
+        h1, h2, h3, h4, .logo-text { font-family: $(font.heading); }
 
         /* Animations */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -223,6 +228,42 @@
             gap: 30px; margin-bottom: 80px;
         }
 
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--glass-border) 50%, var(--bg-secondary) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 12px;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Slider Styles */
+        .featured-slider {
+            width: 100%; margin-bottom: 60px; overflow: hidden; position: relative; border-radius: 24px;
+            height: 450px; background: var(--bg-secondary); border: 1px solid var(--glass-border);
+        }
+        .slider-track { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; }
+        .slide {
+            min-width: 100%; height: 100%; position: relative; display: flex; align-items: flex-end; padding: 60px;
+            background-size: cover; background-position: center; text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .featured-slider { height: 350px; border-radius: 0; margin-left: -20px; width: calc(100% + 40px); }
+            .slide { padding: 30px; }
+            .slide-title { font-size: 1.5rem; }
+        }
+        .slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent, rgba(11,15,25,0.9)); z-index: 1; }
+        .slide-content { position: relative; z-index: 2; max-width: 600px; text-align: left; }
+        .slide-title { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 15px; line-height: 1.1; }
+        .slider-nav {
+            position: absolute; bottom: 30px; right: 30px; display: flex; gap: 10px; z-index: 3;
+        }
+        .slider-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--glass-border); cursor: pointer; transition: 0.3s; }
+        .slider-dot.active { background: var(--accent-primary); width: 30px; border-radius: 5px; }
+
         @media (max-width: 1024px) {
             .blog-posts { grid-template-columns: repeat(2, 1fr); gap: 20px; }
         }
@@ -251,7 +292,9 @@
             width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
             transition: var(--transition); filter: brightness(0.9);
             display: block; background: var(--bg-main);
+            opacity: 0; transition: opacity 0.5s;
         }
+        .card-img.loaded { opacity: 1; }
         .card-placeholder {
             width: 100%; aspect-ratio: 16 / 9;
             background: var(--bg-main);
@@ -466,6 +509,22 @@
                 </div>
             </div>
         </section>
+
+        <!-- SEO JSON-LD Schema -->
+        <script type='application/ld+json'>
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "AI ForgeLab",
+          "url": "<data:blog.homepageUrl.jsonEscaped/>",
+          "description": "Build, Learn, and Profit with AI - Master the AI Revolution.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "<data:blog.homepageUrl.jsonEscaped/>search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+        </script>
     </b:if>
 
     <div class='main-wrapper'>
@@ -473,29 +532,85 @@
             <b:section id='main-section' showaddelement='yes'>
                 <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
                     <b:includable id='main'>
-                        <b:if cond='data:view.isMultipleItems'>
-                            <div class='section-title'>
-                                <b:if cond='data:view.isLabelSearch'>Latest in <data:view.search.label/><b:else/>Latest Updates</b:if>
+                        <b:if cond='data:view.isHomepage'>
+                            <!-- Featured Slider -->
+                            <b:with value='data:posts filter (p => p.labels any (l => l.name == "Featured"))' var='featuredPosts'>
+                                <b:if cond='data:featuredPosts.isNotEmpty'>
+                                    <div class='featured-slider' id='featuredSlider'>
+                                        <div class='slider-track' id='sliderTrack'>
+                                            <b:loop values='data:featuredPosts limit 5' var='post'>
+                                                <b:with value='data:post.featuredImage ?: data:post.firstImageUrl' var='sImg'>
+                                                <a class='slide' expr:href='data:post.url' expr:style='"background-image: url(" + resizeImage(data:sImg, 1200, "16:9") + ");"'>
+                                                    <div class='slide-content'>
+                                                        <div class='card-tag'>Featured Content</div>
+                                                        <h2 class='slide-title'><data:post.title/></h2>
+                                                        <span class='btn btn-primary'>Read Case Study</span>
+                                                    </div>
+                                                </a>
+                                                </b:with>
+                                            </b:loop>
+                                        </div>
+                                        <div class='slider-nav' id='sliderNav'/>
+                                    </div>
+                                </b:if>
+                            </b:with>
+
+                            <!-- Smart Sections -->
+                            <b:include name='homeSection' data='{ title: "AI Tools &amp; Resources", label: "Tools", posts: data:posts }'/>
+                            <b:include name='homeSection' data='{ title: "AI Mastery Guides", label: "Guides", posts: data:posts }'/>
+                            <b:include name='homeSection' data='{ title: "Profit &amp; Monetization", label: "Earn", posts: data:posts }'/>
+
+                            <!-- All Latest Section -->
+                            <div class='section-title'>Latest Innovations</div>
+                            <div class='blog-posts'>
+                                <b:loop values='data:posts' var='post'>
+                                    <b:include data='post' name='postItem'/>
+                                </b:loop>
+                            </div>
+                        <b:else/>
+                            <b:if cond='data:view.isMultipleItems'>
+                                <div class='section-title'>
+                                    <b:if cond='data:view.isLabelSearch'>Latest in <data:view.search.label/><b:else/>Latest Updates</b:if>
+                                </div>
+                            </b:if>
+
+                            <div class='blog-posts'>
+                                <b:loop values='data:posts' var='post'>
+                                    <b:if cond='data:view.isMultipleItems'>
+                                        <b:include data='post' name='postItem'/>
+                                    <b:elseif cond='data:view.isSingleItem'/>
+                                        <b:include data='post' name='postContent'/>
+                                    </b:if>
+                                </b:loop>
                             </div>
                         </b:if>
-
-                        <div class='blog-posts'>
-                            <b:loop values='data:posts' var='post'>
-                                <b:if cond='data:view.isMultipleItems'>
-                                    <b:include data='post' name='postItem'/>
-                                <b:elseif cond='data:view.isSingleItem'/>
-                                    <b:include data='post' name='postContent'/>
-                                </b:if>
-                            </b:loop>
-                        </div>
 
                         <b:if cond='data:view.isMultipleItems'>
                             <b:include name='nextprev'/>
                         </b:if>
                     </b:includable>
 
+                    <b:includable id='homeSection' var='data'>
+                        <b:with value='data:data.posts filter (p => p.labels any (l => l.name == data:data.label))' var='sectionPosts'>
+                            <b:if cond='data:sectionPosts.isNotEmpty'>
+                                <div class='home-section reveal'>
+                                    <div class='section-title'><data:data.title/></div>
+                                    <div class='blog-posts'>
+                                        <b:loop values='data:sectionPosts limit 3' var='post'>
+                                            <b:include data='post' name='postItem'/>
+                                        </b:loop>
+                                    </div>
+                                    <div style='text-align: center; margin-bottom: 60px;'>
+                                        <a class='btn btn-glass' expr:href='"/search/label/" + data:data.label'>View All <data:data.title/></a>
+                                    </div>
+                                </div>
+                            </b:if>
+                        </b:with>
+                    </b:includable>
+
                     <b:includable id='postContent' var='post'>
-                        <article class='post-container'>
+                        <article class='post-container' itemscope='itemscope' itemtype='https://schema.org/BlogPosting'>
+                            <meta expr:content='data:post.url' itemprop='mainEntityOfPage'/>
                             <header class='post-header'>
                                 <div class='card-tag'>
                                     <b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if>
@@ -512,7 +627,7 @@
                                 </div>
                             </b:if>
 
-                            <div class='post-body entry-content' id='postBody' style='display:block !important;'>
+                            <div class='post-body entry-content' id='postBody' itemprop='articleBody' style='display:block !important;'>
                                 <data:post.body/>
                             </div>
 
@@ -534,7 +649,9 @@
                         <a expr:class='data:isFeatured ? "post-card reveal prompt-of-the-day" : "post-card reveal"' expr:href='data:post.url'>
                             <b:with value='data:post.featuredImage ?: data:post.firstImageUrl' var='postImg'>
                                 <b:if cond='data:postImg'>
-                                    <img class='card-img' expr:src='resizeImage(data:postImg, 800, "16:9")' loading='lazy'/>
+                                    <div class='skeleton' style='width:100%; aspect-ratio:16/9;'>
+                                        <img class='card-img' expr:src='resizeImage(data:postImg, 800, "16:9")' loading='lazy' onload='this.classList.add("loaded")'/>
+                                    </div>
                                 <b:else/>
                                     <div class='card-placeholder'>
                                         <svg height='48' viewBox='0 0 24 24' width='48' xmlns='http://www.w3.org/2000/svg'><path d='M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z' fill='currentColor'/></svg>
@@ -634,9 +751,43 @@
             osc.start(); osc.stop(audioCtx.currentTime + dur);
         }
 
+        // Slider Logic
+        function initSlider() {
+            const track = document.getElementById('sliderTrack');
+            const nav = document.getElementById('sliderNav');
+            if (!track || !nav) return;
+
+            const slides = track.querySelectorAll('.slide');
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                nav.appendChild(dot);
+            });
+
+            let currentSlide = 0;
+            function goToSlide(i) {
+                currentSlide = i;
+                track.style.transform = `translateX(-${i * 100}%)`;
+                nav.querySelectorAll('.slider-dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+                playSound(200, 'sine', 0.1);
+            }
+
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                goToSlide(currentSlide);
+            }, 5000);
+        }
+
         function handleScroll() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+            // Parallax Effect
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.backgroundPositionY = (winScroll * 0.5) + 'px';
+            }
             const scrollBar = document.getElementById("scrollBar");
             if (scrollBar) scrollBar.style.width = (winScroll / (height || 1)) * 100 + "%";
 
@@ -705,6 +856,34 @@
             window.open(shareUrl, '_blank', 'width=600,height=400');
         }
 
+        // Breadcrumb Schema
+        function initBreadcrumbs() {
+            if (window.location.pathname === '/') return;
+            const pathArr = window.location.pathname.split('/').filter(p => p);
+            const breadcrumb = {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": window.location.origin
+                }]
+            };
+            if (pathArr.length > 0) {
+                breadcrumb.itemListElement.push({
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": document.title,
+                    "item": window.location.href
+                });
+            }
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(breadcrumb);
+            document.head.appendChild(script);
+        }
+
         // Reading Time Calculation
         function initPostFeatures() {
             const postBodies = document.querySelectorAll('.post-body');
@@ -724,7 +903,9 @@
         }
         window.addEventListener('DOMContentLoaded', () => {
             initMenu();
+            initSlider();
             initPostFeatures();
+            initBreadcrumbs();
             handleScroll();
         });
         window.addEventListener('load', handleScroll);
