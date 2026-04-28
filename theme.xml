@@ -347,6 +347,7 @@
         .main-wrapper {
             max-width: 1300px; margin: 180px auto 40px; padding: 0 25px;
             display: flex; gap: 40px; position: relative; z-index: 1;
+            min-height: 70vh;
         }
         #main-content { flex-grow: 1; min-width: 0; }
         .sidebar { width: 320px; flex-shrink: 0; }
@@ -459,43 +460,45 @@
                         </div>
                     </b:includable>
                     <b:includable id='main'>
-                        <b:if cond='data:view.isPost'>
+                        <b:if cond='data:view.isSingleItem'>
                             <b:loop values='data:posts' var='post'>
                                 <article class='post-container'>
                                     <header class='post-header'>
-                                        <div class='card-tag'><data:post.labels.first.name/></div>
+                                        <b:if cond='data:view.isPost'>
+                                            <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if></div>
+                                        <b:else/>
+                                            <div class='card-tag'>Site Information</div>
+                                        </b:if>
                                         <h1><data:post.title/></h1>
-                                        <div class='post-meta'><span><data:post.date/></span> • <span id='readingTime'/></div>
+                                        <div class='post-meta'>
+                                            <b:if cond='data:view.isPost'>
+                                                <span><data:post.date/></span> • <span id='readingTime'/>
+                                            <b:else/>
+                                                <span>AI ForgeLab Official Page</span>
+                                            </b:if>
+                                        </div>
                                     </header>
+
                                     <b:if cond='data:post.firstImageUrl'>
                                         <div style='text-align:center;'>
                                             <img class='post-featured-img' expr:src='data:post.firstImageUrl'/>
                                         </div>
                                     </b:if>
+
                                     <div class='post-body' id='postBody'>
                                         <data:post.body/>
                                     </div>
-                                    <div class='social-share'>
-                                        <div class='section-title'>Share this post</div>
-                                        <div style='display: flex; gap: 10px;'>
-                                            <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
-                                            <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
-                                            <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+
+                                    <b:if cond='data:view.isPost'>
+                                        <div class='social-share'>
+                                            <div class='section-title'>Share this post</div>
+                                            <div style='display: flex; gap: 10px;'>
+                                                <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
+                                                <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
+                                                <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </article>
-                            </b:loop>
-                        <b:elseif cond='data:view.isPage'/>
-                            <b:loop values='data:posts' var='post'>
-                                <div class='section-title'><data:post.title/></div>
-                                <article class='post-container'>
-                                    <header class='post-header'>
-                                        <h1><data:post.title/></h1>
-                                        <div class='post-meta'>Static Page</div>
-                                    </header>
-                                    <div class='post-body' id='postBody'>
-                                        <data:post.body/>
-                                    </div>
+                                    </b:if>
                                 </article>
                             </b:loop>
                         <b:else/>
