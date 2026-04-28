@@ -37,6 +37,11 @@
             <Variable name="social.twitter" description="Twitter URL" type="string" default="#"/>
             <Variable name="social.facebook" description="Facebook URL" type="string" default="#"/>
             <Variable name="social.linkedin" description="LinkedIn URL" type="string" default="#"/>
+        </Group>
+        <Group description="Theme Settings" title="Features">
+            <Variable name="feature.animations" description="Enable Animations" type="string" default="true"/>
+            <Variable name="feature.sounds" description="Enable Sounds" type="string" default="false"/>
+            <Variable name="feature.postsPerPage" description="Posts per section" type="string" default="3"/>
         </Group> */
 
         :root {
@@ -477,16 +482,8 @@
                         <div class='blog-posts'>
                             <b:loop values='data:posts' var='post'>
                                 <b:if cond='data:view.isMultipleItems'>
-                                    <b:if cond='data:view.isHomepage'>
-                                        <b:if cond='data:post.labels any (l => l.name == "FeaturedPrompt")'>
-                                            <b:include data='post' name='postItem'/>
-                                        <b:else/>
-                                            <b:include data='post' name='postItem'/>
-                                        </b:if>
-                                    <b:else/>
-                                        <b:include data='post' name='postItem'/>
-                                    </b:if>
-                                <b:else/>
+                                    <b:include data='post' name='postItem'/>
+                                <b:elseif cond='data:view.isSingleItem'/>
                                     <b:include data='post' name='postContent'/>
                                 </b:if>
                             </b:loop>
@@ -501,15 +498,11 @@
                         <article class='post-container'>
                             <header class='post-header'>
                                 <div class='card-tag'>
-                                    <b:if cond='data:view.isPage'>Official Page<b:else/><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if></b:if>
+                                    <b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if>
                                 </div>
                                 <h1><data:post.title/></h1>
                                 <div class='post-meta'>
-                                    <b:if cond='data:view.isPost'>
-                                        <span><data:post.date/></span> • <span class='reading-time'/>
-                                    <b:else/>
-                                        AI ForgeLab Official Content
-                                    </b:if>
+                                    <span><data:post.date/></span> • <span class='reading-time'/>
                                 </div>
                             </header>
 
@@ -603,8 +596,6 @@
         <ul class='footer-links-minimal'>
             <li><a href='/p/about.html'>About</a></li>
             <li><a href='/p/contact.html'>Contact</a></li>
-            <li><a href='/p/privacy-policy.html'>Privacy Policy</a></li>
-            <li><a href='/p/terms-of-service.html'>Terms of Service</a></li>
             <li><a href='/p/disclaimer.html'>Disclaimer</a></li>
             <li><a href='/p/affiliate-disclosure.html'>Affiliate Disclosure</a></li>
         </ul>
@@ -616,7 +607,11 @@
 
     <script type='text/javascript'>
     //<![CDATA[
-        const config = { soundEnabled: false, postsPerSection: 3 };
+        const config = {
+            soundEnabled: $(feature.sounds),
+            animationsEnabled: $(feature.animations),
+            postsPerSection: $(feature.postsPerPage)
+        };
 
         // Sound Engine
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -645,9 +640,13 @@
             const backToTop = document.getElementById("backToTop");
             if (backToTop) backToTop.classList.toggle("show", winScroll > 500);
 
-            document.querySelectorAll('.reveal:not(.active)').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
-            });
+            if (config.animationsEnabled) {
+                document.querySelectorAll('.reveal:not(.active)').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+                });
+            } else {
+                document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+            }
         }
         window.onscroll = handleScroll;
 
