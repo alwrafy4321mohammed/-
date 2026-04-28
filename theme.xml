@@ -72,36 +72,48 @@
 
         /* Hero Section */
         .hero-section {
-            height: 100vh;
+            padding: 180px 20px 100px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            margin-top: calc(var(--header-height) * -1);
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
             font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, #fff, var(--accent-primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 35px;
+            color: #FFFFFF;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s forwards 0.2s;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(90deg, #00F5A0, #00D185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline;
+            filter: drop-shadow(0 0 10px rgba(0, 245, 160, 0.2));
         }
 
         .hero-description {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-dim);
-            max-width: 700px;
-            margin-bottom: 40px;
+            max-width: 850px;
+            margin-bottom: 50px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s forwards 0.4s;
+            line-height: 1.8;
+            font-weight: 400;
         }
 
         .hero-btns {
@@ -147,9 +159,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Adjust padding for non-homepage views */
-        body:not(.is-homepage) .content-area {
-            padding-top: calc(var(--header-height) + 40px);
+        /* Ensure content visibility and header clearance */
+        .main-wrapper {
+            padding-top: var(--header-height);
+            transition: padding-top 0.3s ease;
+        }
+
+        body.is-homepage .main-wrapper {
+            padding-top: 0;
         }
 
         /* Header Styles */
@@ -435,6 +452,10 @@
             font-size: 1.1rem;
             line-height: 1.8;
             color: #cbd5e1;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            overflow: visible !important;
         }
 
         .post-body img {
@@ -502,14 +523,19 @@
 
         /* Scroll Animations */
         .reveal {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 1;
+            transform: none;
             transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
+        .js-enabled .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
         .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         /* Pagination */
@@ -580,8 +606,8 @@
         <main class='content-area'>
             <b:if cond='data:view.isHomepage'>
                 <section class='hero-section'>
-                    <h1 class='hero-title'>Welcome to AI FORGE LAB</h1>
-                    <p class='hero-description'>Empowering innovation with next-generation Artificial Intelligence tools, resources, and expert insights for the digital era.</p>
+                    <h1 class='hero-title'>Build, Learn, and <span class='highlight'>Profit</span> with <span class='highlight'>AI</span></h1>
+                    <p class='hero-description'>Welcome to AI ForgeLab. We provide the latest tools, comprehensive guides, and proven strategies to master the artificial intelligence revolution.</p>
                     <div class='hero-btns'>
                         <a class='btn-primary' href='/search/label/Tools'>Explore AI Tools</a>
                         <a class='btn-secondary' href='/search/label/Learn'>Start Learning AI</a>
@@ -591,7 +617,7 @@
 
             <b:section id='main' showaddelement='yes'>
                 <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-                    <b:includable id='main'>
+                    <b:includable id='main' >
                         <div class='blog-posts'>
                             <b:if cond='data:view.isMultipleItems'>
                                 <div class='post-grid'>
@@ -626,13 +652,13 @@
                                                 <span><i class='far fa-user'></i> <data:post.author/></span>
                                                 <span class='reading-time-dynamic'></span>
                                             </div>
-                                            <div class='post-body entry-content' expr:id='"post-body-" + data:post.id'>
+                                            <div class='post-body entry-content' expr:id='"post-body-" + data:post.id' style='display: block !important; visibility: visible !important;'>
                                                 <data:post.body/>
                                             </div>
                                         <b:elseif cond='data:view.isPage'/>
                                             <div class='legal-page'>
                                                 <h1 class='post-title'><data:post.title/></h1>
-                                                <div class='post-body entry-content' expr:id='"post-body-" + data:post.id'>
+                                                <div class='post-body entry-content' expr:id='"post-body-" + data:post.id' style='display: block !important; visibility: visible !important;'>
                                                     <data:post.body/>
                                                 </div>
                                                 <a class='back-home' expr:href='data:blog.homepageUrl'><i class='fas fa-arrow-left'></i> Back to Intelligence Hub</a>
@@ -836,6 +862,7 @@
     if (window.location.pathname === "/" || window.location.pathname === "/index.html") {
         document.body.classList.add('is-homepage');
     }
+    document.body.classList.add('js-enabled');
 
         function toggleSearch(show) {
             const modal = document.getElementById('searchModal');
@@ -938,10 +965,10 @@
                         entry.target.classList.add('active');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
 
-            document.querySelectorAll('.post-card, .post-single, .reveal').forEach(el => {
-                el.classList.add('reveal');
+            const elements = document.querySelectorAll('.post-card, .post-single, .reveal');
+            elements.forEach(el => {
                 observer.observe(el);
             });
         }
