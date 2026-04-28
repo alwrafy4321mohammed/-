@@ -610,16 +610,20 @@
     <script type='text/javascript'>
     //<![CDATA[
         const config = {
-            soundEnabled: $(feature.sounds),
-            animationsEnabled: $(feature.animations),
-            postsPerSection: $(feature.postsPerPage)
+            soundEnabled: <b:eval expr='data:feature.sounds == "true"'/>,
+            animationsEnabled: <b:eval expr='data:feature.animations == "true"'/>,
+            postsPerSection: <b:eval expr='data:feature.postsPerPage'/>
         };
 
         // Sound Engine
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        const audioCtx = new AudioContext();
+        let audioCtx;
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) audioCtx = new AudioContext();
+        } catch(e) { console.warn("AudioContext not supported"); }
+
         function playSound(freq, type, dur) {
-            if (!config.soundEnabled) return;
+            if (!config.soundEnabled || !audioCtx) return;
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
@@ -657,21 +661,23 @@
             window.scrollTo({top: 0});
         };
 
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobileMenu");
-        if (menuBtn && mobileMenu) {
-            menuBtn.onclick = () => {
-                menuBtn.classList.toggle("active");
-                mobileMenu.classList.toggle("active");
-                playSound(300, 'triangle', 0.05);
-            };
-            // Close menu when clicking outside or on a link
-            document.addEventListener('click', (e) => {
-                if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-                    menuBtn.classList.remove("active");
-                    mobileMenu.classList.remove("active");
-                }
-            });
+        function initMenu() {
+            const menuBtn = document.getElementById("menuBtn");
+            const mobileMenu = document.getElementById("mobileMenu");
+            if (menuBtn && mobileMenu) {
+                menuBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    menuBtn.classList.toggle("active");
+                    mobileMenu.classList.toggle("active");
+                    playSound(300, 'triangle', 0.05);
+                };
+                document.addEventListener('click', (e) => {
+                    if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                        menuBtn.classList.remove("active");
+                        mobileMenu.classList.remove("active");
+                    }
+                });
+            }
         }
 
         document.getElementById("soundToggle").onclick = function() {
@@ -717,6 +723,7 @@
             }
         }
         window.addEventListener('DOMContentLoaded', () => {
+            initMenu();
             initPostFeatures();
             handleScroll();
         });
