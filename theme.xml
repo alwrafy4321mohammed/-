@@ -372,7 +372,7 @@
 
                 <aside style='width: 350px;'>
                     <b:section id='sidebar' showaddelement='yes'>
-                        <b:widget id='Search1' locked='false' title='Search' type='Search'>
+                        <b:widget id='Search1' locked='false' title='Search' type='BlogSearch'>
                             <b:includable id='main'>
                                 <div class='sidebar-widget reveal'>
                                     <h3 class='widget-title'>Search Forge</h3>
