@@ -281,7 +281,10 @@
 
         /* Single Post & Page Styles */
         .post-container {
-            background: var(--bg-secondary);
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            background: var(--bg-secondary) !important;
             border-radius: 24px;
             padding: 40px;
             border: 1px solid var(--glass-border);
@@ -320,7 +323,13 @@
             object-fit: contain; border-radius: 16px; margin: 0 auto 40px;
             border: 1px solid var(--glass-border);
         }
-        .post-body { font-size: 1.05rem; line-height: 1.8; color: var(--text-main); }
+        .post-body {
+            display: block !important;
+            visibility: visible !important;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-main) !important;
+        }
         .post-body img { max-width: 100%; height: auto; display: block; margin: 30px auto; border-radius: 12px; }
         .social-share { margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
 
@@ -460,23 +469,13 @@
                         </div>
                     </b:includable>
                     <b:includable id='main'>
-                        <b:if cond='data:view.isSingleItem'>
+                        <b:if cond='data:view.isPost'>
                             <b:loop values='data:posts' var='post'>
                                 <article class='post-container'>
                                     <header class='post-header'>
-                                        <b:if cond='data:view.isPost'>
-                                            <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if></div>
-                                        <b:else/>
-                                            <div class='card-tag'>Site Information</div>
-                                        </b:if>
+                                        <div class='card-tag'><b:if cond='data:post.labels'><data:post.labels.first.name/><b:else/>AI Forge</b:if></div>
                                         <h1><data:post.title/></h1>
-                                        <div class='post-meta'>
-                                            <b:if cond='data:view.isPost'>
-                                                <span><data:post.date/></span> • <span id='readingTime'/>
-                                            <b:else/>
-                                                <span>AI ForgeLab Official Page</span>
-                                            </b:if>
-                                        </div>
+                                        <div class='post-meta'><span><data:post.date/></span> • <span id='readingTime'/></div>
                                     </header>
 
                                     <b:if cond='data:post.firstImageUrl'>
@@ -489,18 +488,30 @@
                                         <data:post.body/>
                                     </div>
 
-                                    <b:if cond='data:view.isPost'>
-                                        <div class='social-share'>
-                                            <div class='section-title'>Share this post</div>
-                                            <div style='display: flex; gap: 10px;'>
-                                                <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
-                                                <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
-                                                <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
-                                            </div>
+                                    <div class='social-share'>
+                                        <div class='section-title'>Share this post</div>
+                                        <div style='display: flex; gap: 10px;'>
+                                            <button class='btn btn-glass' onclick='share("twitter")'>Twitter</button>
+                                            <button class='btn btn-glass' onclick='share("facebook")'>Facebook</button>
+                                            <button class='btn btn-glass' onclick='share("linkedin")'>LinkedIn</button>
                                         </div>
-                                    </b:if>
+                                    </div>
                                 </article>
                             </b:loop>
+                        <b:elseif cond='data:view.isPage'/>
+                            <b:loop values='data:posts' var='post'>
+                                <article class='post-container'>
+                                    <header class='post-header'>
+                                        <div class='card-tag'>Legal / Info</div>
+                                        <h1><data:post.title/></h1>
+                                        <div class='post-meta'>AI ForgeLab Official Content</div>
+                                    </header>
+                                    <div class='post-body' id='postBody'>
+                                        <data:post.body/>
+                                    </div>
+                                </article>
+                            </b:loop>
+
                         <b:else/>
                             <div class='section-title'>
                                 <b:if cond='data:view.isLabelSearch'>Latest in <data:view.search.label/><b:else/>Latest Updates</b:if>
