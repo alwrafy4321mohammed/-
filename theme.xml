@@ -1,315 +1,723 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/gah/static/extensions' xmlns:data='http://www.google.com/adsense/search/ui' xmlns:expr='http://www.google.com/gah/static/extensions'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsversion='3' dir='ltr' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/specs/schemas/2007/blog/b' xmlns:data='http://www.google.com/specs/schemas/2007/blog/data' xmlns:expr='http://www.google.com/specs/schemas/2007/blog/expr'>
 <head>
     <meta charset='UTF-8'/>
     <meta content='width=device-width, initial-scale=1.0, minimum-scale=1.0' name='viewport'/>
     <title><data:blog.pageTitle/></title>
 
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Orbitron:wght@400;700&amp;display=swap' rel='stylesheet'/>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' rel='stylesheet'/>
 
     <b:skin><![CDATA[
         :root {
-            --main-bg: #050b14;
-            --accent-color: #64ffda;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #e6f1ff;
-            --text-secondary: #8892b0;
+            --bg-color: #0b0f19;
+            --accent-primary: #00ff66;
+            --accent-glow: rgba(0, 255, 102, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --card-bg: #111827;
+            --header-height: 70px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes bgMotion {
-            0% { background-position: 0% 0%, 0% 0%; }
-            50% { background-position: 100% 100%, 50px 50px; }
-            100% { background-position: 0% 0%, 0% 0%; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        @keyframes mesh {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
 
         body {
-            background-color: var(--main-bg);
-            background-image: radial-gradient(circle at 50% 50%, rgba(10, 25, 47, 0.9), var(--main-bg)), url('https://www.transparenttextures.com/patterns/stardust.png');
-            background-attachment: fixed;
-            background-size: 200% 200%, auto;
-            animation: bgMotion 20s infinite alternate ease-in-out;
-            color: var(--text-primary);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0;
+            line-height: 1.6;
             overflow-x: hidden;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(0, 255, 102, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 102, 0.05) 0%, transparent 40%),
+                #05080f;
+            background-attachment: fixed;
         }
 
-        header {
-            background: rgba(10, 25, 47, 0.8); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border); padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 255, 102, 0.12) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        .header-inner { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent-color); text-decoration: none; }
-
-        .main-container { max-width: 1200px; width: 92%; margin: 120px auto 60px; }
-
-        .page-nav-wrapper { margin-bottom: 40px; text-align: center; }
-        .PageList ul {
-            list-style: none !important;
-            padding: 0 !important;
-            display: flex !important;
-            justify-content: center !important;
-            gap: 10px !important;
-            flex-wrap: wrap !important;
-            margin: 0 auto !important;
+        /* Scanline effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+            z-index: 10000;
         }
-        .PageList li a {
-            background: var(--glass-bg) !important;
-            border: 1px solid var(--glass-border) !important;
-            color: var(--text-primary) !important;
-            padding: 8px 16px !important;
-            border-radius: 10px !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-            transition: 0.3s;
-            display: inline-block !important;
-            font-size: 0.85rem !important;
+
+        h1, h2, h3, .logo-text, .orbitron {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* --- Header & Navigation --- */
+        #mainHeader {
+            height: var(--header-height);
+            background: rgba(11, 15, 25, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            width: 92%;
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--accent-primary);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            display: none; /* Mobile hidden by default */
+        }
+
+        @media (min-width: 768px) {
+            .search-container { display: block; }
+        }
+
+        .search-input {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 8px 15px 8px 35px;
+            color: white;
+            font-size: 0.9rem;
+            width: 200px;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            width: 280px;
+            border-color: var(--accent-primary);
+            outline: none;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .menu-toggle {
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover { color: var(--accent-primary); }
+
+        /* --- Right Drawer Menu --- */
+        #sideMenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: #0b0f19;
+            z-index: 2001;
+            padding: 40px 30px;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-left: 1px solid var(--accent-primary);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+
+        #sideMenu.active { transform: translateX(0); }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dim);
+        }
+
+        .menu-items {
+            list-style: none;
+            margin-top: 50px;
+        }
+
+        .menu-items li { margin-bottom: 25px; }
+
+        .menu-items a {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-main);
+        }
+
+        .menu-items a:hover {
+            color: var(--accent-primary);
+            transform: translateX(10px);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1500;
+            transition: var(--transition);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- Main Content --- */
+        .main-wrapper {
+            margin-top: calc(var(--header-height) + 40px);
+            min-height: 80vh;
+        }
+
+        .content-container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Placeholder styles for other sections */
+        .section-title {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            border-left: 4px solid var(--accent-primary);
+            padding-left: 15px;
         }
 
         .posts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
         .post-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
+            background: var(--card-bg);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             overflow: hidden;
-            transition: 0.3s ease;
-            text-decoration: none !important;
+            transition: var(--transition);
+            position: relative;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
 
-        .card-image-wrapper {
+        .post-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 255, 102, 0.1), 0 0 15px var(--accent-glow);
+        }
+
+        .post-card:hover .card-img { transform: scale(1.1); }
+
+        .card-img-wrapper {
             width: 100%;
-            height: 180px;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
             overflow: hidden;
-            background: rgba(255,255,255,0.02);
+            background: #1f2937;
+        }
+
+        .card-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .read-more {
+            margin-top: auto;
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .read-more i { transition: var(--transition); }
+        .post-card:hover .read-more i { transform: translateX(5px); }
+
+        /* --- Post Page --- */
+        .post-header { margin-bottom: 40px; text-align: center; }
+        .post-full-title { font-size: 2.5rem; margin-bottom: 20px; color: var(--accent-primary); }
+        .post-meta { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px; }
+        .post-body { font-size: 1.1rem; line-height: 1.8; color: #cbd5e1; }
+        .post-body img { max-width: 100%; height: auto; border-radius: 15px; margin: 20px 0; border: 1px solid var(--glass-border); }
+        .post-body blockquote {
+            border-left: 4px solid var(--accent-primary);
+            padding: 20px;
+            background: var(--glass-bg);
+            margin: 30px 0;
+            font-style: italic;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #05080f;
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover { color: var(--accent-primary); }
+
+        .copyright {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+
+        /* --- Landing Page --- */
+        #landingPage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #05080f;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, #111827 0%, #05080f 100%);
+        }
+
+        .landing-content {
+            max-width: 800px;
+            animation: fadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .landing-logo {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 30px;
+            color: var(--accent-primary);
+            text-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+            text-transform: uppercase;
+        }
+
+        .landing-intro {
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            color: var(--text-main);
+            margin-bottom: 50px;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .home-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent-primary);
+            padding: 18px 50px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 2px solid var(--accent-primary);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-btn:hover {
+            background: var(--accent-primary);
+            color: var(--bg-color);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .home-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px var(--accent-glow);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Back to Top --- */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            color: var(--bg-color);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .card-content { padding: 20px; text-align: start; flex-grow: 1; }
-        .post-card-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.4; text-align: start; }
-        .post-card-snippet { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-
-        .post-single-container { max-width: 850px; margin: 0 auto; width: 100%; }
-        .post-content-body {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            box-sizing: border-box;
-            overflow-wrap: break-word;
-        }
-        .post-content-body h1 { font-size: 1.6rem; line-height: 1.3; margin-bottom: 20px; text-align: start; }
-        .post-body-text { line-height: 1.7; font-size: 1rem; color: #cbd5e1; text-align: start; }
-        .post-body-text img { max-width: 100% !important; height: auto !important; border-radius: 12px !important; margin: 20px 0 !important; }
-
-        @media (max-width: 600px) {
-            .main-container { margin-top: 100px; width: 94%; }
-            .post-content-body { padding: 20px; }
-            .post-content-body h1 { font-size: 1.4rem; }
-            .logo { font-size: 1.3rem; }
-            .posts-grid { grid-template-columns: 1fr; }
+            cursor: pointer;
+            z-index: 900;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        footer { background: rgba(5, 11, 20, 0.9); padding: 40px 20px; border-top: 1px solid var(--glass-border); text-align: center; }
-        .footer-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; }
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
-        #post-fetch-config { display: none; }
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Utility */
+        .hidden { display: none !important; }
+
     ]]></b:skin>
 </head>
-<body>
-    <header><div class='header-inner'><a class='logo' expr:href='data:blog.homepageUrl'>AIVenture</a></div></header>
-
-    <div class='main-container'>
-        <div class='page-nav-wrapper'>
-            <b:section id='page-navigation' showaddelement='yes'>
-                <b:widget id='PageList1' locked='false' title='Pages' type='PageList'/>
-            </b:section>
+<body class='js-enabled'>
+    <div id='landingPage' class='hidden'>
+        <div class='landing-content'>
+            <h1 class='landing-logo orbitron'>AI FORGE LAB</h1>
+            <p class='landing-intro'>
+                Step into the future of intelligence. Discover cutting-edge AI tools, master new skills,
+                and forge your path in the artificial intelligence revolution.
+            </p>
+            <a class='home-btn' href='/' id='enterHome'>HOME</a>
         </div>
-
-        <b:section id='main' showaddelement='yes'>
-            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-                <b:includable id='main'>
-                    <b:if cond='data:view.isPost'>
-                        <div class='post-single-container'>
-                            <b:loop values='data:posts' var='post'>
-                                <article class='post-content-body'>
-                                    <h1><data:post.title/></h1>
-                                    <div class='post-body-text'><data:post.body/></div>
-                                </article>
-                            </b:loop>
-                        </div>
-                    <b:else/>
-                        <b:if cond='data:view.isHomepage or data:view.isLabelSearch'>
-                            <div class='posts-grid'>
-                                <b:loop values='data:posts' var='post'>
-                                    <a class='post-card' expr:href='data:post.url'>
-                                        <div class='card-image-wrapper'>
-                                            <b:if cond='data:post.firstImageUrl'>
-                                                <img expr:src='resizeImage(data:post.firstImageUrl, 500, "1:1")' loading='lazy'/>
-                                            <b:elseif cond='data:post.thumbnailUrl'/>
-                                                <img expr:src='resizeImage(data:post.thumbnailUrl, 500, "1:1")' loading='lazy'/>
-                                            <b:else/>
-                                                <div class='card-icon-placeholder'><i class='fas fa-image'/></div>
-                                            </b:if>
-                                        </div>
-                                        <div class='card-content'>
-                                            <h2 class='post-card-title'><data:post.title/></h2>
-                                            <div class='post-card-snippet'><data:post.snippet/></div>
-                                        </div>
-                                    </a>
-                                </b:loop>
-                            </div>
-                        <b:else/>
-                            <b:if cond='data:view.isPage'>
-                                <div id='static-page-posts-grid' class='posts-grid'>
-                                    <p style='text-align: center; color: var(--text-secondary); padding: 50px; grid-column: 1/-1;'>جاري تحميل المشاركات...</p>
-                                </div>
-                                <b:loop values='data:posts' var='post'>
-                                    <div class='post-body-text'><data:post.body/></div>
-                                </b:loop>
-                            </b:if>
-                        </b:if>
-                    </b:if>
-                </b:includable>
-            </b:widget>
-        </b:section>
     </div>
 
-    <footer>
-        <div class='footer-links'>
-            <a expr:href='data:blog.homepageUrl'>Home</a>
-            <a href='/p/about-us.html'>About Us</a>
-            <a href='/p/contact-us.html'>Contact Us</a>
-            <a href='/p/privacy-policy.html'>Privacy Policy</a>
-            <a href='/p/terms-and-conditions.html'>Terms and Conditions</a>
-            <a href='/p/disclaimer.html'>Disclaimer</a>
-        </div>
-        <p>© 2026 AIVenture | Neural Interface v7.0</p>
-    </footer>
+    <div id='mainApp'>
+        <header id='mainHeader'>
+            <div class='header-container'>
+                <a class='logo' expr:href='data:blog.homepageUrl'>
+                    <i class='fas fa-microchip' style='margin-right: 10px;'></i>
+                    <span class='logo-text'>AI FORGE LAB</span>
+                </a>
+                <div class='header-actions'>
+                    <div class='search-container'>
+                        <form action='/search' method='get'>
+                            <i class='fas fa-search search-icon'></i>
+                            <input class='search-input' name='q' placeholder='Search AI Forge...' type='text'/>
+                        </form>
+                    </div>
+                    <div class='menu-toggle' id='menuOpen'><i class='fas fa-bars'></i></div>
+                </div>
+            </div>
+        </header>
+
+        <nav id='sideMenu'>
+            <div class='close-menu' id='menuClose'><i class='fas fa-times'></i></div>
+            <ul class='menu-items'>
+                <li><a href='/search/label/AI-Tools'><i class='fas fa-tools'></i> AI Tools</a></li>
+                <li><a href='/search/label/AI-Money'><i class='fas fa-dollar-sign'></i> AI Money</a></li>
+                <li><a href='/search/label/Learn-AI'><i class='fas fa-graduation-cap'></i> Learn AI</a></li>
+                <li><a href='/search/label/Image-Prompts'><i class='fas fa-paint-brush'></i> Image Prompts</a></li>
+            </ul>
+        </nav>
+        <div class='menu-overlay' id='menuOverlay'></div>
+        <div id='backToTop'><i class='fas fa-chevron-up'></i></div>
+
+        <main class='main-wrapper'>
+            <div class='content-container'>
+                <b:section id='main' showaddelement='yes'>
+                    <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+                        <b:includable id='main'>
+                            <b:if cond='data:view.isMultipleItems'>
+        <div class='section-title reveal'>
+                                    <b:if cond='data:view.isLabelSearch'>
+                                        <data:view.search.label/>
+                                    <b:else/>
+                                        Latest Forge Updates
+                                    </b:if>
+                                </div>
+                                <div class='posts-grid'>
+                                    <b:loop values='data:posts' var='post'>
+                <article class='post-card reveal'>
+                                            <a expr:href='data:post.url'>
+                                                <div class='card-img-wrapper'>
+                                                    <b:if cond='data:post.featuredImage'>
+                                                        <img class='card-img' expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 600, "16:9")'/>
+                                                    <b:elseif cond='data:post.thumbnailUrl'/>
+                                                        <img class='card-img' expr:alt='data:post.title' expr:src='resizeImage(data:post.thumbnailUrl, 600, "16:9")'/>
+                                                    <b:else/>
+                                                        <div class='card-img' style='background: linear-gradient(45deg, #0b0f19, #111827); display:flex; align-items:center; justify-content:center; color:var(--accent-primary); font-size:3rem;'>
+                                                            <i class='fas fa-microchip'></i>
+                                                        </div>
+                                                    </b:if>
+                                                </div>
+                                            </a>
+                                            <div class='card-content'>
+                                                <a expr:href='data:post.url'><h2 class='post-title'><data:post.title/></h2></a>
+                                                <p class='post-excerpt'><data:post.snippet/></p>
+                                                <a class='read-more' expr:href='data:post.url'>
+                                                    READ MORE <i class='fas fa-arrow-right'></i>
+                                                </a>
+                                            </div>
+                                        </article>
+                                    </b:loop>
+                                </div>
+                            <b:else/>
+                                <b:loop values='data:posts' var='post'>
+                                    <article class='post-full-content'>
+                <div class='post-header reveal'>
+                                            <h1 class='post-full-title orbitron'><data:post.title/></h1>
+                                            <div class='post-meta'>
+                                                <span><i class='far fa-calendar-alt'></i> <data:post.date/></span>
+                                            </div>
+                                        </div>
+                                        <b:if cond='data:post.featuredImage'>
+                                            <img class='post-main-img' expr:src='data:post.featuredImage' style='width:100%; border-radius:20px; margin-bottom:40px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);'/>
+                                        </b:if>
+                                        <div class='post-body entry-content'>
+                                            <data:post.body/>
+                                        </div>
+                                    </article>
+                                </b:loop>
+                            </b:if>
+                        </b:includable>
+                    </b:widget>
+                </b:section>
+            </div>
+        </main>
+
+        <footer>
+            <div class='footer-content'>
+                <div class='footer-links'>
+                    <a href='/p/about.html'>About</a>
+                    <a href='/p/contact.html'>Contact</a>
+                    <a href='/p/privacy-policy.html'>Privacy Policy</a>
+                    <a href='/p/terms-of-service.html'>Terms of Service</a>
+                    <a href='/p/disclaimer.html'>Disclaimer</a>
+                </div>
+                <div class='copyright'>
+                    &#169; <span id='currentYear'></span> AI Forge Lab. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script type='text/javascript'>
     //<![CDATA[
-        function loadPostsByLabel(label, targetElementId) {
-            var blogUrl = window.location.origin;
-            var script = document.createElement('script');
-            script.src = blogUrl + '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json-in-script&callback=displayPosts';
-            document.head.appendChild(script);
+        // Menu Toggle Logic
+        const menuOpen = document.getElementById('menuOpen');
+        const menuClose = document.getElementById('menuClose');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
 
-            window.displayPosts = function(json) {
-                var postsContainer = document.getElementById(targetElementId);
-                if (!postsContainer) return;
-                postsContainer.innerHTML = '';
+        menuOpen.onclick = () => {
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+        };
 
-                if (json.feed && json.feed.entry && json.feed.entry.length > 0) {
-                    json.feed.entry.forEach(function(entry) {
-                        var postUrl = '';
-                        for (var i = 0; i < entry.link.length; i++) {
-                            if (entry.link[i].rel == 'alternate') {
-                                postUrl = entry.link[i].href;
-                                break;
-                            }
-                        }
-                        var rawTitle = entry.title.$t || '';
-                        var postTitle = rawTitle.split('{')[0].split('<')[0].trim();
-                        if (postTitle === '') postTitle = 'مشاركة بدون عنوان';
+        menuClose.onclick = menuOverlay.onclick = () => {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
 
-                        var postImage = '';
-                        if (entry.media$thumbnail) {
-                            postImage = entry.media$thumbnail.url.replace('s72-c', 's1600');
-                        } else if (entry.content && entry.content.$t.match(/<img[^>]+src="([^">]+)"/)) {
-                            postImage = entry.content.$t.match(/<img[^>]+src="([^">]+)"/)[1];
-                        }
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-                        var rawText = entry.summary ? entry.summary.$t : (entry.content ? entry.content.$t : '');
-                        var cleanText = rawText.replace(/<(style|script)[^>]*>[\s\S]*?<\/\1>/gi, '');
-                        cleanText = cleanText.replace(/<[^>]*>?/gm, '').trim();
-                        var postSnippet = cleanText.substring(0, 100) + (cleanText.length > 100 ? '...' : '');
-
-                        var imageHtml = postImage ? '<img src="' + postImage + '" loading="lazy"/>' : '<div class="card-icon-placeholder"><i class="fas fa-image"></i></div>';
-
-                        var postCard = document.createElement('a');
-                        postCard.href = postUrl;
-                        postCard.className = 'post-card';
-                        postCard.innerHTML = '<div class="card-image-wrapper">' + imageHtml + '</div>' +
-                                             '<div class="card-content">' +
-                                             '<h2 class="post-card-title">' + postTitle + '</h2>' +
-                                             '<div class="post-card-snippet">' + postSnippet + '</div>' +
-                                             '</div>';
-                        postsContainer.appendChild(postCard);
-                    });
-                } else {
-                    postsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;">' +
-                                             '<p style="color: var(--text-secondary); margin-bottom: 10px;">لا توجد مشاركات مرتبطة بهذا التصنيف حالياً.</p>' +
-                                             '<p style="font-size: 0.8rem; color: #555;">التصنيف المطلوب: <b>' + label + '</b></p></div>';
-                }
-            };
-        }
-
-        function initializeStaticPagePosts() {
-            var postsContainerId = 'static-page-posts-grid';
-            var targetContainer = document.getElementById(postsContainerId);
-            if (!targetContainer) return;
-
-            var configEl = document.getElementById('post-fetch-config');
-            var labelToFetch = '';
-
-            if (configEl && configEl.getAttribute('data-label')) {
-                labelToFetch = configEl.getAttribute('data-label');
+        // Back to Top Logic
+        const btt = document.getElementById('backToTop');
+        window.onscroll = () => {
+            if (window.pageYOffset > 300) {
+                btt.classList.add('show');
             } else {
-                labelToFetch = document.title.split(' : ')[0].split(' | ')[0].trim();
+                btt.classList.remove('show');
             }
+        };
+        btt.onclick = () => window.scrollTo(0, 0);
 
-            if (labelToFetch) {
-                loadPostsByLabel(labelToFetch, postsContainerId
-);
-            }
-        }
-
-        function cleanupSnippets() {
-            var snippets = document.querySelectorAll('.post-card-snippet');
-            snippets.forEach(function(snippet) {
-                var text = snippet.textContent;
-                // Enhanced regex to catch CSS blocks and selectors even if partially cut off
-                var cleanText = text.replace(/\{[\s\S]*?\}/g, ''); // Remove anything between { }
-                cleanText = cleanText.replace(/[.#]?[a-z0-9_-]+\s*\{/gi, ''); // Remove selectors before {
-                cleanText = cleanText.replace(/\.[a-z0-9_-]+|#[a-z0-9_-]+|property:\s*[^;]+;/gi, ''); // Remove class/id/props
-                cleanText = cleanText.replace(/[a-z-]+\s*:\s*[^;{}]+;?/gi, ''); // Remove any key:value;
-                cleanText = cleanText.replace(/[}{}:;]/g, ''); // Remove stray characters
-
-                cleanText = cleanText.trim();
-                if (cleanText !== text && cleanText !== "") {
-                    snippet.textContent = cleanText;
+        // Scroll Reveal Logic
+        const reveal = () => {
+            const reveals = document.querySelectorAll('.post-card, .section-title, .post-header');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
                 }
-            });
-        }
+            }
+        };
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initializeStaticPagePosts();
-                cleanupSnippets();
-            });
-        } else {
-            initializeStaticPagePosts();
-            cleanupSnippets();
-        }
+        // Mouse Move Effect
+        document.addEventListener('mousemove', e => {
+            document.body.style.setProperty('--mouse-x', (e.clientX) + 'px');
+            document.body.style.setProperty('--mouse-y', (e.clientY) + 'px');
+        });
+
+        // Entry Flow Logic
+        (function() {
+            const landingPage = document.getElementById('landingPage');
+            const mainApp = document.getElementById('mainApp');
+            const enterBtn = document.getElementById('enterHome');
+
+            const isHomepage = <b:eval expr='data:view.isHomepage ? "true" : "false"'/>;
+            const hasVisited = sessionStorage.getItem('ai_forge_visited');
+
+            if (isHomepage && !hasVisited) {
+                landingPage.classList.remove('hidden');
+                mainApp.classList.add('hidden');
+
+                enterBtn.onclick = (e) => {
+                    e.preventDefault();
+                    sessionStorage.setItem('ai_forge_visited', 'true');
+                    landingPage.style.opacity = '0';
+                    landingPage.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    setTimeout(() => {
+                        landingPage.classList.add('hidden');
+                        mainApp.classList.remove('hidden');
+                        window.scrollTo(0, 0);
+                    }, 500);
+                };
+            } else {
+                mainApp.classList.remove('hidden');
+            }
+        })();
     //]]>
     </script>
 </body>
